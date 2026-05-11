@@ -1,0 +1,107 @@
+@font-face {
+    font-family: "Nohemi";
+    src: url("../recursos/tipografias/Nohemi-Regular-BF6438cc58b98fc.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Nohemi";
+    src: url("../recursos/tipografias/Nohemi-Bold-BF6438cc5812315.otf") format("opentype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Nohemi";
+    src: url("../recursos/tipografias/Nohemi-Thin-BF6438cc5896c67.ttf") format("truetype");
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Denton Variable";
+    src: url("../recursos/tipografias/DentonVariableTest-VF.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "PPMondwest-Regular";
+    src: url("../recursos/tipografias/PPMondwest-Regular.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "PPNeueBit-Bold";
+    src: url("../recursos/tipografias/PPNeueBit-Bold.otf") format("opentype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    /* Colores principales de la identidad DDMI 10 aniversario.
+       Se usan para fondos, texto, acentos, estados y elementos de interfaz. */
+    --verde-codigo: #73ff7a;
+    --azul-vr: #2966ff;
+    --rosa-mictlan: rgb(238, 142, 250);
+    --amarillo-electrico: rgb(255, 234, 0);
+    --blanco: rgb(255, 255, 255);
+    --gris: #e2e2e2;
+    --negro: rgb(0, 0, 0);
+
+    /* Escala de espaciado del sitio.
+       Sirve para padding, gaps, separaciones internas y distancia entre bloques. */
+    --espacio-xs: 0.5rem;
+    --espacio-sm: 1rem;
+    --espacio-md: 1.5rem;
+    --espacio-lg: 2rem;
+    --espacio-xl: 3rem;
+    --espacio-xxl: 4rem;
+
+    /* Medidas estructurales.
+       Controlan la altura del header/nav, el ancho maximo del contenido,
+       el ancho ideal para lectura y el tamano minimo comodo para elementos clickeables. */
+    --alto-header: 5rem;
+    --alto-nav: 4rem;
+    --ancho-maximo: 70rem;
+    --ancho-texto: 65ch;
+    --objetivo-tactil: 2.75rem;
+
+    /* Breakpoints responsive.
+       Referencias para adaptar el layout en movil, tablet, laptop y pantallas grandes. */
+    --bp-movil: 600px;
+    --bp-tablet: 768px;
+    --bp-laptop: 1024px;
+    --bp-desktop: 1200px;
+    --bp-grande: 1400px;
+
+    /* Sistema tipografico.
+       Define que familia se usa para cuerpo de texto, textos secundarios,
+       elementos principales de identidad y textos fuertes tipo HUD/menu. */
+    --fuente-cuerpo: "Nohemi", Arial, Helvetica, sans-serif;
+    --fuente-secundaria: "Denton Variable", Arial, Helvetica, sans-serif;
+    --fuente-principal: "PPMondwest-Regular", Arial, Helvetica, sans-serif;
+    --fuente-principal-bold: "PPNeueBit-Bold", Arial, Helvetica, sans-serif;
+
+    /* Tamanos de texto base.
+       Se usan para etiquetas pequenas, texto normal, menus y textos destacados. */
+    --texto-xs: 0.75rem;
+    --texto-sm: 0.875rem;
+    --texto-md: 1rem;
+    --texto-lg: 1.25rem;
+
+
+    /* Tamanos de titulos.
+       Se usan para encabezados de seccion, titulos principales y textos hero. */
+    --titulo-md: 2rem;
+    --titulo-lg: 3rem;
+    --titulo-xl: 4rem;
+}

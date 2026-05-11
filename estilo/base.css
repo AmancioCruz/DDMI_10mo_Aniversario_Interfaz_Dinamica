@@ -1,0 +1,41 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    background-color: var(--negro);
+    color: var(--blanco);
+    font-family: var(--fuente-cuerpo);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+p {
+    max-width: var(--ancho-texto);
+    color: var(--gris);
+    font-size: var(--texto-md);
+    line-height: 1.55;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--fuente-principal-bold);
+    line-height: 1;
+    text-transform: uppercase;
+}
