@@ -27,7 +27,7 @@ const jugador1 = {
     alto: altoRaqueta,
     color: "#2966ff", // Azul Eléctrico
     score: 0,
-    dy: 8
+    dy: 5 //Velocidad de movimiento vertical de la raqueta
 };
 
 // Jugador 2 (Derecha) 
@@ -38,7 +38,7 @@ const jugador2 = {
     alto: altoRaqueta,
     color: "#ee8efa", // Rosa Eléctrico
     score: 0,
-    dy: 8
+    dy: 5
 };
 
 // Pelota y su velocidad
