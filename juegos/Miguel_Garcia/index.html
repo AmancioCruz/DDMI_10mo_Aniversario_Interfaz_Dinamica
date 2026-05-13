@@ -1,11 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pong Game</title>
+    <title>PONG | DDMI</title>
+
+    <!-- Iconos que uso el profesor -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="css/stylePong.css">
 </head>
+
 <body>
-    
+    <header class="hud-superior">
+        <a class="marca-juego" href="../../index.html">
+            <img src="../../recursos/identidad/simbolo-decimo-aniversario-ddmi.png" alt="Logo">
+            <span>
+                <strong>PONG</strong>
+                <small>DDMI - Decimo Aniversario</small>
+            </span>
+        </a>
+
+        <!-- Modificamos esto para llevar los 2 puntajes del Pong -->
+        <section class="estadisticas-juego">
+            <p><i class="fa-solid fa-gamepad"></i> P1 Score: <span id="score-p1">0</span></p>
+            <p><i class="fa-solid fa-gamepad"></i> P2 Score: <span id="score-p2">0</span></p>
+        </section>
+
+        <nav class="menu-juego" aria-label="Menu del juego">
+            <ul>
+                <li>
+                    <a href="../../index.html">
+                        <i class="fa-solid fa-house"></i>
+                        Inicio
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ÁREA PRINCIPAL DEL JUEGO -->
+    <main class="escenario">
+
+        <!-- Panel Izquierdo -->
+        <aside class="panel-juego">
+            <p class="etiqueta-panel">Mission 01</p>
+            <h1>PONG</h1>
+            <p>Defiende tu zona, intercepta la pelota y anota 5 puntos para ganar la partida.</p>
+
+            <ul class="controles-juego">
+                <li><i class="fa-solid fa-w"></i> / <i class="fa-solid fa-s"></i> Mover Jugador 1</li>
+                <li><i class="fa-solid fa-arrow-up"></i> / <i class="fa-solid fa-arrow-down"></i> Mover Jugador 2</li>
+                <li><i class="fa-solid fa-keyboard"></i> Espacio para pausar</li>
+            </ul>
+
+            <button class="boton-hud" type="button" id="iniciar-juego">
+                <i class="fa-solid fa-play"></i>
+                <span>Iniciar</span>
+            </button>
+        </aside>
+
+        <!-- Panel Derecho (Canvas) -->
+        <section class="marco-canvas" aria-label="Area de juego">
+            <!-- Pantalla superpuesta para iniciar -->
+            <!-- Tu pantalla superpuesta para iniciar -->
+            <div id="pantallaInicio" class="pantalla-overlay">
+                <h2 class="texto-brillante">SELECCIONA EL MODO</h2>
+
+                <div class="contenedor-modos">
+                    <button id="btn-1p" class="btn-modo ia">1 JUGADOR (Vs IA)</button>
+                    <button id="btn-2p" class="btn-modo">2 JUGADORES</button>
+                </div>
+            </div>
+
+            <canvas id="lienzoPong" width="1000" height="600"></canvas>
+
+        </section>
+    </main>
+
+    <script type="module" src="js/scriptPong.js"></script>
 </body>
+
 </html>
