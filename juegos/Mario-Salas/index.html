@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <div class="barra">
+
+        <button>Pincel</button>
+        <button>Linea</button>
+        <button>Cuadro</button>
+        <button>Circulo</button>
+        <button>Triangulo</button>
+        <button>Sticker</button>
+        <button>Borrador</button>
+
+    </div>
+
+    <canvas
+        id="lienzo"
+        class="lienzo"
+        width="1000"
+        height="800"></canvas>
+
+    <div class="controles">
+
+        <input type="file">
+
+        <input type="color">
+        <input type="color">
+
+        <input type="range" min="1" max="50" value="3">
+
+        <button>Blanco y negro</button>
+        <button>Escala rojos</button>
+        <button>Escala verdes</button>
+        <button>Escala azul</button>
+        <button>Sepia</button>
+        <button>Negativo</button>
+
+        <button>Limpiar</button>
+        <button>Guardar</button>
+        <button>Deshacer</button>
+        <button>Rehacer</button>
+
+    </div>
+
+</div>
+
+</body>
+<script type="module" src="js/canvas.js"></script>
+
+</html>
