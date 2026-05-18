@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candy Landy | DDMI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+    <header class="hud-superior">
+        <a class="marca-juego" href="../../index.html">
+            <img src="../../recursos/identidad/simbolo-decimo-aniversario-ddmi.png" alt="">
+            <span>
+                <strong>Candy Landy</strong>
+                <small>DDMI - Decimo Aniversario</small>
+            </span>
+        </a>
+
+        <section class="estado-juego" aria-label="Estado del juego">
+            <p><i class="fa-solid fa-signal"></i> Status: Activo</p>
+            <p><i class="fa-solid fa-star"></i> Monedas: <span id="valor-monedas">0</span></p>
+            <p><i class="fa-solid fa-heart"></i> Vida: <span id="vida-jugador">3</span></p>
+            <p><i class="fa-solid fa-clock"></i> Tiempo: <span id="tiempo-restante">60</span>s</p>
+        </section>
+        
+        <nav class="menu-juego" aria-label="Menu del juego">
+            <ul>
+                <li>
+                    <a href="../../index.html">
+                        <i class="fa-solid fa-house"></i>
+                        Inicio
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="escenario">
+        <aside class="panel-juego">
+            <p class="etiqueta-panel">Mission 01</p>
+            <h1>Candy Landy</h1>
+            <p>Recolecta todas las monedas, esquiva los obstáculos y sobrevive al tiempo límite.</p>
+
+            <ul class="controles-juego">
+                <li><i class="fa-solid fa-arrow-up"></i> Mover arriba</li>
+                <li><i class="fa-solid fa-arrow-down"></i> Mover abajo</li>
+                <li><i class="fa-solid fa-arrow-left"></i> Mover izquierda</li>
+                <li><i class="fa-solid fa-arrow-right"></i> Mover derecha</li>
+                <li><i class="fa-solid fa-keyboard"></i> Espacio para saltar</li>
+            </ul>
+
+            <button class="boton-hud" type="button" id="reiniciar-juego">
+                <i class="fa-solid fa-play"></i>
+                <span>Iniciar</span>
+            </button>
+        </aside>
+
+        <section class="marco-canvas" aria-label="Area de juego">
+            <canvas id="canvas" width="1000" height="600"></canvas>
+        </section>
+    </main>
+
+    <script type="module" src="js/juego.js"></script>
+</body>
+
+</html>
