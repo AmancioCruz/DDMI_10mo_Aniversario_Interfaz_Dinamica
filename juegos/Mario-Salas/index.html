@@ -1,61 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Break arc</title>
+
     <link rel="stylesheet" href="css/estilo.css">
 </head>
 
 <body>
 
-<div class="contenedor">
+    <div class="contenedor">
 
-    <div class="barra">
+        <h1 class="titulo">
+            Break arc
+        </h1>
 
-        <button>Pincel</button>
-        <button>Linea</button>
-        <button>Cuadro</button>
-        <button>Circulo</button>
-        <button>Triangulo</button>
-        <button>Sticker</button>
-        <button>Borrador</button>
+        <div class="hud">
 
-    </div>
+            <div class="score">
+                SCORE: <span id="score">0</span>
+            </div>
 
-    <canvas
-        id="lienzo"
-        class="lienzo"
-        width="1000"
-        height="800"></canvas>
+            <div class="vidas">
+                VIDAS: <span id="vidas">3</span>
+            </div>
 
-    <div class="controles">
+        </div>
 
-        <input type="file">
-
-        <input type="color">
-        <input type="color">
-
-        <input type="range" min="1" max="50" value="3">
-
-        <button>Blanco y negro</button>
-        <button>Escala rojos</button>
-        <button>Escala verdes</button>
-        <button>Escala azul</button>
-        <button>Sepia</button>
-        <button>Negativo</button>
-
-        <button>Limpiar</button>
-        <button>Guardar</button>
-        <button>Deshacer</button>
-        <button>Rehacer</button>
+        <canvas
+            id="gameCanvas"
+            width="1280"
+            height="720">
+        </canvas>
+        <input type="file" id="inputNave" accept="image/png, image/jpeg">
+        <button id="btnStart">
+            START GAME
+        </button>
 
     </div>
 
-</div>
+    <script src="js/game.js"></script>
 
 </body>
-<script type="module" src="js/canvas.js"></script>
 
 </html>
