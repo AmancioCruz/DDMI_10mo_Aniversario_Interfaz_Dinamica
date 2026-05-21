@@ -127,8 +127,8 @@ spritesGlobales.dialogoWallace.src = 'recursos/HUD/DialogoWallace.png';
 spritesGlobales.dialogoRobin.src = 'recursos/HUD/DialogoRobin.png';   
 
 const voces = {
-    wallace: new Audio('recursos/sonidos/wallaceVoice.wav'),
-    robin: new Audio('recursos/sonidos/robinVoice.wav')
+    wallace: new Audio('recursos/Sonidos/wallaceVoice.wav'),
+    robin: new Audio('recursos/Sonidos/robinVoice.wav')
 };
 
 class Personaje {
@@ -738,16 +738,16 @@ const vigasDecorativas = [
 
 // SFX
 const sfx = {
-    salto: new Audio('recursos/sonidos/Salto.mp3'),
-    recogerItem: new Audio('recursos/sonidos/RecogerItem.mp3'),
-    dano: new Audio('recursos/sonidos/Dano.mp3'),
-    romperBarricada: new Audio('recursos/sonidos/RomperBarricada.mp3'),
-    elevador: new Audio('recursos/sonidos/Elevador.mp3'),
-    usarCompu: new Audio('recursos/sonidos/UsarCompu.mp3'),
-    romperTabla: new Audio('recursos/sonidos/RomperTabla.mp3'),
-    perder: new Audio('recursos/sonidos/Perder.mp3'),
-    ganar: new Audio('recursos/sonidos/Ganar.mp3'),
-    agua: new Audio('recursos/sonidos/Agua.mp3')
+    salto: new Audio('recursos/Sonidos/Salto.mp3'),
+    recogerItem: new Audio('recursos/Sonidos/RecogerItem.mp3'),
+    dano: new Audio('recursos/Sonidos/Dano.mp3'),
+    romperBarricada: new Audio('recursos/Sonidos/RomperBarricada.mp3'),
+    elevador: new Audio('recursos/Sonidos/Elevador.mp3'),
+    usarCompu: new Audio('recursos/Sonidos/UsarCompu.mp3'),
+    romperTabla: new Audio('recursos/Sonidos/RomperTabla.mp3'),
+    perder: new Audio('recursos/Sonidos/Perder.mp3'),
+    ganar: new Audio('recursos/Sonidos/Ganar.mp3'),
+    agua: new Audio('recursos/Sonidos/Agua.mp3')
 };
 
 //Volúmenes
