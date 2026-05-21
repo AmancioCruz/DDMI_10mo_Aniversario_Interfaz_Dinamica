@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apocalypse Four | DDMI</title>
+    <link rel="icon" type="image/png" href="recursos/Icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <main id="game-container">
+        <header class="hud-superior">
+            <a class="marca-juego" href="../../index.html">
+                <img src="../../recursos/identidad/simbolo-decimo-aniversario-ddmi.png" alt="DDMI">
+                <span>
+                    <strong>Apocalypse Four</strong>
+                    <small>DDMI - Decimo Aniversario</small>
+                </span>
+            </a>
+
+            <section class="estado-juego" aria-label="Estado del juego">
+                <p><i class="fa-solid fa-signal"></i> Status: Activo</p>
+                <p><i></i> <span id="nivel-actual">1</span></p>
+                <p><i class="fa-solid fa-person-walking-arrow-right"></i> Nivel: <span id="nivel-actual">1</span></p>
+            </section>
+
+            <nav class="menu-juego" aria-label="Menu del juego">
+                <ul>
+                    <li>
+                        <a href="../../index.html">
+                            <i class="fa-solid fa-house"></i>
+                            Inicio
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="escenario">
+            <aside class="panel-juego">
+                <p class="etiqueta-panel">Mission 01: Brimestone City</p>
+                <h1>Apocalypse Four</h1>
+                <p>Coopera con Robin y Wallace para escapar de la ciudad. Evita los pozos tóxicos y las tablas flojas.</p>
+
+                <div class="columnas-controles">
+                    <ul class="controles-juego">
+                        <p class="perfil-control">
+                            <img src="recursos/Sprites/RobinIcon.png" alt="Robin" class="avatar-hud">
+                            <strong>Robin</strong>
+                        </p>
+                        <li><i class="fa-solid fa-keyboard"></i> W: Saltar</li>
+                        <li><i class="fa-solid fa-keyboard"></i> A - D: Mover / Elevador</li>
+                        <li><i class="fa-solid fa-keyboard"></i> E: Interactuar Compu</li>
+                    </ul>
+                    
+                    <ul class="controles-juego">
+                        <p class="perfil-control">
+                            <img src="recursos/Sprites/WallaceIcon.png" alt="Wallace" class="avatar-hud">
+                            <strong>Wallace</strong>
+                        </p>
+                        <li><i class="fa-solid fa-arrow-up"></i> Flecha Arriba: Saltar</li>
+                        <li><i class="fa-solid fa-left-right"></i> Flechas Izq / Der: Mover</li>
+                        <li><i class="fa-solid fa-keyboard"></i> Enter: Modo Ataque</li>
+                        <li><i class="fa-solid fa-keyboard"></i> Espacio: Golpe de Bate</li>
+                    </ul>
+                </div>
+                
+                <p class="nota-controles"><i class="fa-solid fa-circle-info"></i> En pantallas finales usa <strong>W / S</strong> y confirma con <strong>Enter</strong>.</p>
+
+                <button class="boton-hud" type="button" id="iniciar-juego">
+                    <i class="fa-solid fa-play"></i>
+                    <span>Sobrevivir</span>
+                </button>
+            </aside>
+
+            <section class="marco-canvas" aria-label="Area de juego">
+                <canvas id="canvas" width="1000" height="600"></canvas>
+            </section>
+        </main>
+    </main>
+
+    <script type="module" src="js/script.js"></script>
+</body>
+</html>
