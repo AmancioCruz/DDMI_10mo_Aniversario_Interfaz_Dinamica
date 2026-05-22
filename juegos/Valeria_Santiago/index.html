@@ -1,11 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Carnaval Run</title>
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    
+    <header class="hud-superior">
+        <a class="marca-juego" href="../../index.html">
+            <img src="../../recursos/identidad/simbolo-decimo-aniversario-ddmi.png" alt="">
+            <span>
+                <strong>Carnaval Run</strong>
+                <small>DDMI - Decimo Aniversario</small>
+            </span>
+        </a>
+    </header>
+
+    <div id="contenedor-juego">
+        <header>
+            <div id="hud">
+                <div class="hud-item">Nivel: <span id="texto-nivel">1</span></div>
+                <div class="hud-item">Vidas: <span id="texto-vidas">❤️❤️❤️</span></div>
+                <div class="hud-item">Baratijas: <span id="texto-objetos">0 / 3</span></div>
+                <div class="hud-item">Puntos: <span id="texto-puntuacion">0</span></div>
+            </div>
+        </header>
+
+        <main>
+            <canvas id="lienzo"></canvas>
+        </main>
+
+        <div id="aviso-puerta" class="oculto">
+            ¡Necesitas todas las baratijas para abrir esta puerta!
+        </div>
+
+        <footer>
+            <p>Controles: <strong>WASD / Flechas</strong> | <strong>Clic Izquierdo</strong> para levantar barricadas</p>
+        </footer>
+    </div>
+
+    <div id="pantalla-derrota" class="overlay oculto">
+        <div class="contenido-overlay">
+            <h2 class="texto-derrota">FIN DEL ESPECTÁCULO</h2>
+            <p>Te han atrapado...</p>
+            <button id="btn-reiniciar-derrota">Volver a empezar</button>
+        </div>
+    </div>
+
+    <div id="pantalla-victoria" class="overlay oculto">
+        <div class="contenido-overlay">
+            <h2 class="texto-victoria">¡SALIÓ CON VIDA!</h2>
+            <p>Felicidades, superaste todas las atracciones del carnaval.</p>
+            <p>Puntuación Final: <span id="puntuacion-final">0</span></p>
+            <button id="btn-reiniciar-victoria">Jugar de nuevo</button>
+        </div>
+    </div>
+
+    <script type="module" src="js/juego.js"></script>
 </body>
 </html>

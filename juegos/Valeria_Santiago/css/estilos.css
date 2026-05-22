@@ -1,0 +1,169 @@
+@import url("../../../estilo/configuraciones.css");
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body {
+    background-color: #160a16;
+    color: #f4eee1;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+#contenedor-juego {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 3rem;
+    color: #f7d070; /* Dorado circo */
+    text-shadow: 3px 3px #c72c41; /* Sombra roja carmín */
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+#hud {
+    display: flex;
+    gap: 30px;
+    background: #2d1124;
+    padding: 12px 25px;
+    border-radius: 8px;
+    border: 3px solid #521c43;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.hud-item {
+    color: #f4eee1;
+}
+
+main {
+    position: relative;
+    margin-top: 10px;
+}
+
+canvas#lienzo {
+    background-color: #0d040e;
+    border: 4px solid #521c43;
+    box-shadow: 0 0 25px rgba(82, 28, 67, 0.7);
+    display: block;
+    cursor: crosshair;
+}
+
+footer {
+    margin-top: 15px;
+    color: #a38a9e;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+/* --- PANTALLAS EMERGENTES (OVERLAYS) --- */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(12, 4, 13, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+/* Esta es la clase clave que ocultará las ventanas correctamente */
+.oculto {
+    display: none !important;
+}
+
+.contenido-overlay {
+    background: #240c22;
+    padding: 40px;
+    border-radius: 12px;
+    border: 3px solid #ee4540;
+    text-align: center;
+    max-width: 500px;
+    box-shadow: 0 0 35px #ee4540;
+}
+
+.texto-derrota {
+    color: #ee4540;
+    font-size: 3rem;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px #000;
+}
+
+.texto-victoria {
+    color: #00b894;
+    font-size: 3rem;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px #000;
+}
+
+.contenido-overlay p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+button {
+    background: #ee4540;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 15px;
+    box-shadow: 0 4px #801323;
+    transition: background 0.2s, transform 0.1s;
+}
+
+button:hover {
+    background: #ff5e59;
+}
+
+button:active {
+    transform: translateY(3px);
+    box-shadow: none;
+}
+
+#aviso-puerta {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(238, 69, 64, 0.9);
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    z-index: 20;
+    border: 2px solid #f7d070;
+    animation: parpadeo 1s infinite alternate;
+}
+
+@keyframes parpadeo {
+    from { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+    to { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+}
+
+.oculto { display: none !important; }
