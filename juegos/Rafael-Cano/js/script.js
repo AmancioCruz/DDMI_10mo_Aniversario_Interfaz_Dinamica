@@ -6,7 +6,7 @@ const ctx = canvas.getContext('2d');
 let juegoActivo = false;
 let vidas = 3;
 let nivelActual = 1;
-let estadoPantalla = "juego"; // "juego", "ganar", "perder"
+let estadoPantalla = "inicio"; // "juego", "ganar", "perder"
 let botonSeleccionado = 0;
 let aguaRecogida = 0;
 let aguaTotalNivel = 0;
@@ -51,6 +51,7 @@ fuenteDoubleHomicide.load().then((fuente) => {
 
 // Cargar imágenes de la interfaz en spritesGlobales
 const spritesGlobales = {
+    portada: new Image(),
     robin: new Image(),
     fondo: new Image(),
     plataformaChica: new Image(),
@@ -124,7 +125,8 @@ spritesGlobales.wallaceIntroFight.src = 'recursos/Sprites/spr_wallace_intro_figh
 spritesGlobales.wallaceAttack.src = 'recursos/Sprites/spr_wallace_attack_strip.png';          
 spritesGlobales.wallaceOutroFight.src = 'recursos/Sprites/spr_wallace_outro_fight_strip.png';   
 spritesGlobales.dialogoWallace.src = 'recursos/HUD/DialogoWallace.png';
-spritesGlobales.dialogoRobin.src = 'recursos/HUD/DialogoRobin.png';   
+spritesGlobales.dialogoRobin.src = 'recursos/HUD/DialogoRobin.png'; 
+spritesGlobales.portada.src = 'Portada.jpg'; 
 
 const voces = {
     wallace: new Audio('recursos/Sonidos/wallaceVoice.wav'),
@@ -144,7 +146,7 @@ class Personaje {
         this.nombre = nombre;
         this.controles = controles;
         this.velocidad = (nombre === "Wallace") ? 6 : 4; 
-        this.fuerzaSalto = 12;
+        this.fuerzaSalto = 11;
         this.velX = 0;
         this.velY = 0;
         this.enSuelo = false;
@@ -996,11 +998,28 @@ function verificarColisionAABB(personaje, obstaculo) {
            personaje.y + personaje.height > obstaculo.hitboxY;
 }
 function bucleJuego() {
-    if (!juegoActivo) {
-        if (estadoPantalla === "perder") { dibujarPantallaPerder(); requestAnimationFrame(bucleJuego); return; }
-        if (estadoPantalla === "ganar") { dibujarPantallaGanar(); requestAnimationFrame(bucleJuego); return; }
+if (!juegoActivo) {
+
+    if (estadoPantalla === "inicio") {
+        dibujarPantallaInicio();
+        requestAnimationFrame(bucleJuego);
         return;
     }
+
+    if (estadoPantalla === "perder") {
+        dibujarPantallaPerder();
+        requestAnimationFrame(bucleJuego);
+        return;
+    }
+
+    if (estadoPantalla === "ganar") {
+        dibujarPantallaGanar();
+        requestAnimationFrame(bucleJuego);
+        return;
+    }
+
+    return;
+}
 
     if (!juegoPausado && !dialogoActivo) {
         robin.actualizar();
@@ -1125,7 +1144,42 @@ function dibujarPantallaGanar() {
     ctx.font = "20px ApocalypseGrunge";
     ctx.fillText("VOLVER A JUGAR", canvas.width / 2, btnY + btnH / 2 + 4);
 }
+function dibujarPantallaInicio() {
 
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Fondo portada
+    if (spritesGlobales.portada.complete) {
+
+        ctx.drawImage(
+            spritesGlobales.portada,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+    } else {
+
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // Oscurecer un poco para que el texto destaque
+    ctx.fillStyle = "rgba(0, 0, 0, 0)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Instrucción
+    ctx.fillStyle = "#ffff00";
+    ctx.font = "48px ApocalypseGrunge";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(
+        "PRESIONA EL BOTON PARA COMENZAR",
+        canvas.width / 2,
+        canvas.height / 2 + 200
+    );
+}
 function actualizarCamara() {
     let minX = Math.min(robin.x, wallace.x);
     let maxX = Math.max(robin.x + robin.width, wallace.x + wallace.width);
@@ -1166,6 +1220,7 @@ function actualizarCamara() {
 
 // Botón Iniciar
 document.getElementById('iniciar-juego').addEventListener('click', function() {
+    estadoPantalla = "juego";
     juegoActivo = true;
     this.style.display = 'none'; // Oculta el menú/botón al arrancar
     
@@ -1179,7 +1234,6 @@ document.getElementById('iniciar-juego').addEventListener('click', function() {
         estadoTexto.innerHTML = '<i class="fa-solid fa-signal"></i> Status: EN MISIÓN';
     }
     
-    bucleJuego();
 });
 
 
@@ -1446,4 +1500,6 @@ if (elementoVidas) {
 }
 
 actualizarHUDVidasHTML();
+bucleJuego();
 });
+
