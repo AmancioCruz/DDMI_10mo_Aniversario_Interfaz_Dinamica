@@ -41,7 +41,7 @@ class Plataforma {
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 
-const bola = new Bola(200, 200, 10, 2, 2);
+const bola = new Bola(200, 200, 10, -2, -2);
 const plataforma = new Plataforma(175, canvas.clientHeight-20,70,10,20);
 
 
@@ -59,7 +59,19 @@ function gameLoop(){
     bola.update()
     bola.draw(context);
 
-    if(bola.x -)
+    if(bola.x - bola.radio <0 || bola.x + bola.radio > canvas.clientWidth){
+        bola.velocidadX = -bola.velocidadX;
+    }
+
+    if(bola.y - bola.radio <0){
+        bola.velocidadY = -bola.velocidadY;
+    }
+
+    if(bola.x + bola.radio > plataforma.x &&
+       bola.x - bola.radio < plataforma.x + plataforma.ancho &&
+       bola.y + bola.radio > plataforma.y){
+        bola.velocidadY = -bola.velocidadY;
+       }
 
     plataforma.draw(context);
 
