@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carnaval Run</title>
+    <title>Carnaval Run | DDMI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
@@ -15,43 +16,56 @@
                 <small>DDMI - Decimo Aniversario</small>
             </span>
         </a>
+        <section class="estado-juego" id="hud">
+            <p><i class="fa-solid fa-signal"></i> Status: Activo</p>
+            <p><i class="fa-solid fa-heart"></i> Vidas: <span id="texto-vidas">❤️❤️❤️</span></p>
+            <p><i class="fa-solid fa-key"></i> Baratijas: <span id="texto-objetos">0 / 3</span></p>
+            <p><i class="fa-solid fa-star"></i> Puntos: <span id="texto-puntuacion">0</span></p>
+        </section>
+        <nav class="menu-juego" aria-label="Menu del juego">
+            <ul>
+                <li>
+                    <a href="../../index.html">
+                        <i class="fa-solid fa-house"></i>
+                        Inicio
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
     </header>
 
-    <div id="contenedor-juego">
-        <header>
-            <div id="hud">
-                <div class="hud-item">Nivel: <span id="texto-nivel">1</span></div>
-                <div class="hud-item">Vidas: <span id="texto-vidas">❤️❤️❤️</span></div>
-                <div class="hud-item">Baratijas: <span id="texto-objetos">0 / 3</span></div>
-                <div class="hud-item">Puntos: <span id="texto-puntuacion">0</span></div>
-            </div>
-        </header>
+    <main class="escenario">
+        <aside class="panel-juego">
+            <p class="etiqueta-panel"><i class="fa-solid fa-flag"></i> Nivel: <span id="texto-nivel">1</span></p>
+            <h1>Carnaval Run</h1>
+            <p>Escapa de la atracción. Recolecta todas las baratijas para abrir la puerta.</p>
+            <ul class="controles-juego">
+                <li><i class="fa-solid fa-keyboard"></i> WASD / Flechas para mover</li>
+                <li><i class="fa-solid fa-mouse"></i> Clic para barricadas</li>
+            </ul>
+            <div id="aviso-puerta" class="oculto">¡Necesitas todas las baratijas!</div>
 
-        <main>
-            <canvas id="lienzo"></canvas>
-        </main>
+            <button class="boton-hud" type="button" id="reiniciar-juego">
+                <i class="fa-solid fa-play"></i>
+                <span id="texto-boton">Iniciar</span>
+            </button>
+        </aside>
 
-        <div id="aviso-puerta" class="oculto">
-            ¡Necesitas todas las baratijas para abrir esta puerta!
-        </div>
-
-        <footer>
-            <p>Controles: <strong>WASD / Flechas</strong> | <strong>Clic Izquierdo</strong> para levantar barricadas</p>
-        </footer>
-    </div>
+        <section class="marco-canvas">
+            <canvas id="lienzo" width="800" height="600"></canvas>
+        </section>
+    </main>
 
     <div id="pantalla-derrota" class="overlay oculto">
         <div class="contenido-overlay">
-            <h2 class="texto-derrota">FIN DEL ESPECTÁCULO</h2>
-            <p>Te han atrapado...</p>
+            <h2>FIN DEL ESPECTÁCULO</h2>
             <button id="btn-reiniciar-derrota">Volver a empezar</button>
         </div>
     </div>
-
     <div id="pantalla-victoria" class="overlay oculto">
         <div class="contenido-overlay">
-            <h2 class="texto-victoria">¡SALIÓ CON VIDA!</h2>
-            <p>Felicidades, superaste todas las atracciones del carnaval.</p>
+            <h2>¡SALIÓ CON VIDA!</h2>
             <p>Puntuación Final: <span id="puntuacion-final">0</span></p>
             <button id="btn-reiniciar-victoria">Jugar de nuevo</button>
         </div>

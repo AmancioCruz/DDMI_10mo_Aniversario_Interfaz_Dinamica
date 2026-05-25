@@ -20,16 +20,16 @@ export const sprites = {
 };
 
 // Placeholders estéticos ---! Hay que cambiar los gifs por ciclos for !---
-sprites.jugador.src = '../assets/kas.gif';
-sprites.enemigoBasico.src = '../assets/clown.gif';
-sprites.enemigoRapido.src = '../assets/max.gif';
-sprites.enemigoFantasma.src = '../assets/blot.gif';
+sprites.jugador.src = './assets/kas.gif';
+sprites.enemigoBasico.src = './assets/clown.gif';
+sprites.enemigoRapido.src = './assets/max.gif';
+sprites.enemigoFantasma.src = './assets/blot.gif';
 sprites.enemigoJefe.src = 'https://placehold.co/40x40/8e44ad/ffffff?text=JEFE';
-sprites.muroFijo.src = '../assets/w.png';
+sprites.muroFijo.src = './assets/w.png';
 sprites.muroJugador.src = 'https://placehold.co/40x40/d63031/ff7675?text=X';
-sprites.baratija.src = '../assets/bread.png';
+sprites.baratija.src = './assets/bread.png';
 sprites.puerta.src = 'https://placehold.co/40x40/00b894/ffffff?text=Salida';
-sprites.poderEspecial.src = '../assets/cotton.png';
+sprites.poderEspecial.src = './assets/cotton.png';
 
 // --- MAPAS (0=Suelo, 1=Muro, 2=Barricada, 3=Baratija, 4=Salida, 5=Dulce Invencibilidad) ---
 export const mapasNiveles = {

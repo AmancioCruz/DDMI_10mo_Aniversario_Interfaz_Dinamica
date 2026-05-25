@@ -351,19 +351,97 @@ function reiniciarJuego(reinicioTotal = false) {
     document.querySelector('#pantalla-victoria').classList.add('oculto');
     
     iniciarNivel();
+    console.log("Reiniciando...");
+    location.reload();
 }
 
 // Eventos de botones (QuerySelector)
 document.querySelector('#btn-reiniciar-derrota').addEventListener('click', () => reiniciarJuego(true));
 document.querySelector('#btn-reiniciar-victoria').addEventListener('click', () => reiniciarJuego(true));
 
+
 function bucleJuego(tiempoActual) {
     if (!juegoTerminado && !juegoGanado) {
         actualizarEnemigos(tiempoActual);
     }
+    if (!juegoIniciado) {
+        dibujarPantallaInicial();
+        return;
+    }
     dibujar();
     requestAnimationFrame(bucleJuego);
 }
+
+
+
+const botonAccion = document.querySelector('#reiniciar-juego');
+const textoBoton = document.querySelector('#texto-boton');
+
+// Variable de estado global para controlar el flujo
+let juegoIniciado = false;
+
+function dibujarPantallaInicial() {
+    dibujarFondo();
+
+    ctx.save();
+    ctx.fillStyle = "rgba(0, 0, 0, .45)";
+    ctx.fillRect(0, 0, lienzo.width, lienzo.height);
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.shadowColor = "rgba(255, 234, 0, .8)";
+    ctx.shadowBlur = 16;
+    ctx.font = "64px PPNeueBit-Bold, monospace";
+    ctx.fillStyle = "rgba(255, 234, 0, .9)";
+    ctx.fillText("INICIAR CARNAVAL", lienzo.width / 2, lienzo.height / 2 - 30);
+    ctx.shadowBlur = 0;
+    ctx.font = "24px Denton Variable, monospace";
+    ctx.fillStyle = "rgba(255, 255, 255, .6)";
+    ctx.fillText("Presiona iniciar para comenzar", lienzo.width / 2, lienzo.height / 2 + 34);
+    ctx.restore();
+}
+
+function dibujarFondo() {
+    ctx.fillStyle = "#1a1a1a";
+    ctx.fillRect(0, 0, lienzo.width, lienzo.height);
+
+    ctx.save();
+    ctx.strokeStyle = "rgba(255, 234, 0, .12)";
+    ctx.lineWidth = 1;
+
+    for (let x = 0; x < lienzo.width; x += 40) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, lienzo.height);
+        ctx.stroke();
+    }
+
+    for (let y = 0; y < lienzo.height; y += 40) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(lienzo.width, y);
+        ctx.stroke();
+    }
+
+    ctx.restore();
+}
+
+botonAccion.addEventListener('click', () => {
+    if (!juegoIniciado) {
+        iniciarJuego();
+        
+    } else {
+        reiniciarJuego();
+    }
+});
+
+function iniciarJuego() {
+    juegoIniciado = true;
+    textoBoton.textContent = "Reiniciar";
+    requestAnimationFrame(bucleJuego)
+    console.log("Juego iniciado");
+}
+
+
 
 // Arranque
 iniciarNivel();
