@@ -34,15 +34,69 @@
             width="1280"
             height="720">
         </canvas>
-        <input type="file" id="inputNave" accept="image/png, image/jpeg">
+        <div class="controles-touch">
+
+    <button id="btnIzquierda">
+        ⬅
+    </button>
+
+    <button id="btnDerecha">
+        ➡
+    </button>
+
+</div>
+        <label class="input-nave">
+
+    SUBIR NAVE
+
+    <input
+        type="file"
+        id="inputNave"
+        accept="image/png, image/jpeg"
+    >
+
+</label>
         <button id="btnStart">
             START GAME
         </button>
+        <div class="panel-reglas">
+
+    <h2>
+        REGLAS DEL JUEGO
+    </h2>
+
+    <ul>
+        <li>
+            Carga tu Nave en formato png o jpeg
+        </li>
+
+        <li>
+            Mueve la nave con las flechas ← →
+        </li>
+
+        <li>
+            Destruye todos los ladrillos para ganar
+        </li>
+
+        <li>
+            Los ladrillos rojos resisten más golpes
+        </li>
+
+        <li>
+            Tienes 3 vidas
+        </li>
+
+        <li>
+            Si la pelota cae pierdes una vida
+        </li>
+
+    </ul>
+
+</div>
 
     </div>
 
-    <script src="js/game.js"></script>
-
+<script type="module" src="js/game.js"></script>
 </body>
 
 </html>

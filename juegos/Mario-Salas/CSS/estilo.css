@@ -6,71 +6,118 @@
 
 body {
 
+    margin: 0;
+
     font-family: Arial, sans-serif;
 
-    background-color: #202020;
+    background-color: #0a0a0a;
+
     color: white;
 
     display: flex;
+
     justify-content: center;
+}
+.contenedor {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 15px;
 
     padding: 20px;
 }
 
-.contenedor {
-
-    width: 100%;
-    max-width: 1400px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    gap: 20px;
-}
-
 .titulo {
 
-    font-size: 3rem;
+    font-size: 60px;
+
+    color: #00ffff;
+
+    text-shadow:
+
+        0 0 10px #00ffff,
+
+        0 0 20px #00ffff,
+
+        0 0 40px #00ffff;
 }
 
 .hud {
 
-    width: 100%;
-
     display: flex;
-    justify-content: space-between;
 
-    font-size: 1.3rem;
+    gap: 40px;
+
+    font-size: 28px;
+
+    color: #ff00ff;
+
+    text-shadow:
+
+        0 0 10px #ff00ff;
 }
 
 #gameCanvas {
 
     width: 100%;
+
     max-width: 1280px;
+
+    height: auto;
 
     background-color: black;
 
-    border: 3px solid white;
+    border: 3px solid #00ffff;
+
+    box-shadow:
+
+        0 0 20px #00ffff,
+
+        0 0 40px #00ffff;
 }
 
 #btnStart {
 
-    padding: 12px 30px;
+   
+    padding: 15px 30px;
 
-    border: none;
+    font-size: 20px;
 
-    background-color: white;
-    color: black;
+    border: 2px solid #ff00ff;
 
-    font-size: 1rem;
+    background-color: black;
+
+    color: #ff00ff;
 
     cursor: pointer;
+
+    border-radius: 10px;
+
+    transition: 0.3s;
+
+    box-shadow:
+
+        0 0 10px #ff00ff;
 }
 
 #btnStart:hover {
 
-    background-color: lightgray;
+    button:hover {
+
+    background-color: #ff00ff;
+
+    color: black;
+
+    box-shadow:
+
+        0 0 20px #ff00ff,
+
+        0 0 40px #ff00ff;
+}
 }
 
 @media (max-width: 768px) {
@@ -90,4 +137,122 @@ body {
 
         width: 100%;
     }
+}
+/* panel reglas */
+.panel-reglas {
+
+    
+    width: 700px;
+
+    padding: 20px;
+
+    border: 3px solid #ffe600;
+
+    border-radius: 15px;
+
+    background-color: #111;
+
+    color: white;
+
+    box-shadow:
+
+        0 0 20px #ffe600;
+
+    text-align: left;
+}
+
+
+.panel-reglas h2 {
+
+    margin-top: 0;
+
+    text-align: center;
+}
+
+
+.panel-reglas ul {
+
+    padding-left: 20px;
+}
+
+
+.panel-reglas li {
+
+    margin-bottom: 10px;
+}
+/* controles celular */
+.controles-touch {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 40px;
+
+    margin-top: 20px;
+}
+
+
+.controles-touch button {
+
+    width: 90px;
+
+    height: 90px;
+
+    font-size: 40px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    background-color: #333;
+
+    color: white;
+}
+/* subir nave */
+.input-nave {
+
+    padding: 15px 25px;
+
+    border: 2px solid #00ffff;
+
+    border-radius: 12px;
+
+    background-color: black;
+
+    color: #00ffff;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    box-shadow:
+
+        0 0 10px #00ffff,
+
+        0 0 20px #00ffff;
+
+    transition: 0.3s;
+}
+
+
+/* hover */
+.input-nave:hover {
+
+    background-color: #00ffff;
+
+    color: black;
+
+    box-shadow:
+
+        0 0 20px #00ffff,
+
+        0 0 40px #00ffff;
+}
+
+
+/* esconder input original */
+.input-nave input {
+
+    display: none;
 }

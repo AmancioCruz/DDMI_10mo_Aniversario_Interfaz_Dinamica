@@ -1,18 +1,41 @@
+import {
+
+    barra,
+    pelota,
+    ladrillos,
+
+    moverBarra,
+    moverPelota,
+
+    dibujarBarra,
+    dibujarPelota,
+    dibujarLadrillos,
+
+    reiniciarPelota
+
+} from "./entidades.js";
+
+
 const canvas = document.querySelector("#gameCanvas");
 const ctx = canvas.getContext("2d");
 
 const btnStart = document.querySelector("#btnStart");
+const btnIzquierda = document.querySelector("#btnIzquierda");
+const btnDerecha = document.querySelector("#btnDerecha");
 const textoVidas = document.querySelector("#vidas");
+const textoScore = document.querySelector("#score");
 
 let juegoIniciado = false;
 let vidas = 3;
 let gameOver = false;
+let youWin = false;
+let score = 0;
+const scoreData = {
 
-
+    valor: 0
+};
 // imagen de la nave
 const inputNave = document.querySelector("#inputNave");
-
-const naveImg = new Image();
 
 inputNave.addEventListener("change", (event) => {
 
@@ -20,37 +43,9 @@ inputNave.addEventListener("change", (event) => {
 
     if (archivo) {
 
-        naveImg.src = URL.createObjectURL(archivo);
+        barra.imagen.src = URL.createObjectURL(archivo);
     }
 });
-
-
-// nave
-const barra = {
-
-    x: 540,
-    y: 620,
-
-    ancho: 180,
-    alto: 80,
-
-    velocidad: 12
-};
-
-
-// pelota
-const pelota = {
-
-    x: 640,
-    y: 350,
-
-    radio: 12,
-
-    velocidadX: 6,
-    velocidadY: 6,
-
-    color: "white"
-};
 
 
 // teclado
@@ -73,6 +68,7 @@ window.addEventListener("keydown", (event) => {
 
         teclas.derecha = true;
     }
+    
 });
 
 
@@ -88,167 +84,40 @@ window.addEventListener("keyup", (event) => {
         teclas.derecha = false;
     }
 });
+// mover izquierda touch
+btnIzquierda.addEventListener("touchstart", () => {
 
+    teclas.izquierda = true;
+});
 
-// boton start
-btnStart.addEventListener("click", () => {
+btnIzquierda.addEventListener("touchend", () => {
 
-    if (!gameOver) {
-
-        juegoIniciado = true;
-    }
+    teclas.izquierda = false;
 });
 
 
-// mover nave
-function moverBarra() {
+// mover derecha touch
+btnDerecha.addEventListener("touchstart", () => {
 
-    if (teclas.izquierda) {
+    teclas.derecha = true;
+});
 
-        barra.x -= barra.velocidad;
-    }
+btnDerecha.addEventListener("touchend", () => {
 
-    if (teclas.derecha) {
-
-        barra.x += barra.velocidad;
-    }
+    teclas.derecha = false;
+});
 
 
-    // limites pantalla
-    if (barra.x < 0) {
+btnStart.addEventListener("click", () => {
 
-        barra.x = 0;
-    }
+    if (gameOver || youWin) {
 
-    if (barra.x + barra.ancho > canvas.width) {
-
-        barra.x = canvas.width - barra.ancho;
-    }
-}
-
-
-// mover pelota
-function moverPelota() {
-
-    pelota.x += pelota.velocidadX;
-    pelota.y += pelota.velocidadY;
-
-
-    // rebote izquierda y derecha
-    if (
-
-        pelota.x - pelota.radio < 0 ||
-        pelota.x + pelota.radio > canvas.width
-
-    ) {
-
-        pelota.velocidadX *= -1;
+        reiniciarJuego();
     }
 
 
-    // rebote arriba
-    if (
-
-        pelota.y - pelota.radio < 0
-
-    ) {
-
-        pelota.velocidadY *= -1;
-    }
-
-
-    // colision con nave
-    if (
-
-        pelota.y + pelota.radio > barra.y &&
-        pelota.y - pelota.radio < barra.y + barra.alto &&
-
-        pelota.x + pelota.radio > barra.x &&
-        pelota.x - pelota.radio < barra.x + barra.ancho
-
-    ) {
-
-        pelota.velocidadY *= -1;
-
-        // evitar atravesar nave
-        pelota.y = barra.y - pelota.radio;
-    }
-
-
-    // perder pelota
-    if (
-
-        pelota.y - pelota.radio > canvas.height
-
-    ) {
-
-        vidas--;
-
-        textoVidas.textContent = vidas;
-
-        reiniciarPelota();
-
-
-        // game over
-        if (vidas <= 0) {
-
-            gameOver = true;
-
-            juegoIniciado = false;
-        }
-    }
-}
-
-
-// reiniciar pelota
-function reiniciarPelota() {
-
-    pelota.x = 640;
-    pelota.y = 350;
-
-    pelota.velocidadX = 6;
-    pelota.velocidadY = 6;
-
-    juegoIniciado = false;
-}
-
-
-// dibujar nave
-function dibujarBarra() {
-
-    ctx.drawImage(
-
-        naveImg,
-
-        barra.x,
-        barra.y,
-
-        barra.ancho,
-        barra.alto
-    );
-}
-
-
-// dibujar pelota
-function dibujarPelota() {
-
-    ctx.beginPath();
-
-    ctx.fillStyle = pelota.color;
-
-    ctx.arc(
-
-        pelota.x,
-        pelota.y,
-
-        pelota.radio,
-
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-}
+    juegoIniciado = true;
+});
 
 
 // dibujar game over
@@ -268,6 +137,60 @@ function dibujarGameOver() {
         canvas.height / 2
     );
 }
+function dibujarYouWin() {
+
+    ctx.fillStyle = "cyan";
+
+    ctx.font = "80px Arial";
+
+    ctx.textAlign = "center";
+
+    ctx.fillText(
+
+        "YOU WIN",
+
+        canvas.width / 2,
+        canvas.height / 2
+    );
+}
+function reiniciarJuego() {
+
+    vidas = 3;
+
+    textoVidas.textContent = vidas;
+
+
+    scoreData.valor = 0;
+
+    textoScore.textContent = 0;
+
+
+    gameOver = false;
+
+    youWin = false;
+
+
+    reiniciarPelota(pelota);
+
+
+    // reiniciar ladrillos
+    for (
+
+        let i = 0;
+        i < ladrillos.length;
+        i++
+
+    ) {
+
+        const ladrillo = ladrillos[i];
+
+
+        const fila = Math.floor(i / 8);
+
+
+        ladrillo.vidas = Math.max(1, 4 - fila);
+    }
+}
 
 
 // loop principal
@@ -281,24 +204,85 @@ function actualizar() {
     );
 
 
-    moverBarra();
+    moverBarra(
+        teclas,
+        barra,
+        canvas
+    );
 
 
     if (juegoIniciado) {
 
-        moverPelota();
+        moverPelota(
+            pelota,
+            barra,
+            canvas,
+
+            textoScore,
+            scoreData,
+            textoVidas,
+            vidas,
+            gameOver,
+            reiniciarPelota
+            
+        );
+
+
+        if (
+
+            pelota.y - pelota.radio > canvas.height
+
+        ) {
+
+            vidas--;
+
+            textoVidas.textContent = vidas;
+
+            reiniciarPelota(pelota);
+
+            if (vidas <= 0) {
+
+                gameOver = true;
+
+                juegoIniciado = false;
+            }
+        }
     }
 
 
-    dibujarBarra();
+    dibujarBarra(
+        ctx,
+        barra
+    );
 
-    dibujarPelota();
+    dibujarPelota(
+        ctx,
+        pelota
+    );
+    dibujarLadrillos(ctx);
+    const ladrillosRestantes = ladrillos.filter(
+
+    ladrillo => ladrillo.vidas > 0
+);
+
+
+if (ladrillosRestantes.length === 0) {
+
+    youWin = true;
+
+    juegoIniciado = false;
+    gameOver = false;
+}
 
 
     if (gameOver) {
 
         dibujarGameOver();
     }
+    if (youWin) {
+
+    dibujarYouWin();
+}
 
 
     requestAnimationFrame(actualizar);
