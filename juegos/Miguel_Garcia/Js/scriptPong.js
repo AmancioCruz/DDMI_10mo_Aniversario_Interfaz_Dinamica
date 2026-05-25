@@ -6,6 +6,12 @@ const pantallaInicio = document.querySelector("#pantallaInicio");
 const btn1P = document.querySelector("#btn-1p");
 const btn2P = document.querySelector("#btn-2p");
 
+const sonidoRebote = new Audio("Recursos/Audio/Rebote.mp3");
+const sonidoVictoria = new Audio("Recursos/Audio/Ganador.mp3");
+
+const musicaFondo = new Audio("Recursos/Audio/MusicaFondo.mp3");
+musicaFondo.loop = true;
+musicaFondo.volume = 0.3; // Volumen al 30% para no ser molesto
 
 const marcadorP1 = document.querySelector("#score-p1");
 const marcadorP2 = document.querySelector("#score-p2");
@@ -116,6 +122,8 @@ function iniciarPartida(esIA) {
     if (!juegoEnMarcha) {
         juegoEnMarcha = true;
         juegoPausado = false;
+
+        musicaFondo.play(); // Iniciamos la música de fondo
         resetearPelota(); // Mandamos la pelota al centro
         gameLoop();       // iniciamos el loop del juego
     }
@@ -172,6 +180,8 @@ function actualizarFisicas() {
         pelota.y + pelota.radio > jugadorActual.y &&
         pelota.y - pelota.radio < jugadorActual.y + jugadorActual.alto) {
         
+        sonidoRebote.currentTime = 0; // Reinicia el sonido por si hay muchos rebotes
+        sonidoRebote.play(); // Reproduce el sonido de rebote
         // Invertimos la dirección de la pelota y la aceleramos un 5% para hacerlo más difícil
         pelota.dx *= -1.05;
         
@@ -217,6 +227,11 @@ function actualizarMarcador() {
     if (jugador1.score >= 5 || jugador2.score >= 5) {
         juegoEnMarcha = false; // Apagamos el motor
         
+        musicaFondo.pause(); // Pausamos la música de fondo
+        musicaFondo.currentTime = 0; // Reiniciamos la música para la próxima partida
+        sonidoVictoria.currentTime = 0; 
+        sonidoVictoria.play(); 
+
         // Un pequeño retraso para que alcance a pintar el último punto en pantalla
         setTimeout(() => {
             let ganador = jugador1.score >= 5 ? "JUGADOR 1" : (modoUnJugador ? "LA IA" : "JUGADOR 2");
