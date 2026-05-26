@@ -19,17 +19,47 @@ export const sprites = {
     poderEspecial: new Image() 
 };
 
-// Placeholders estéticos ---! Hay que cambiar los gifs por ciclos for !---
-sprites.jugador.src = './assets/kas.gif';
-sprites.enemigoBasico.src = './assets/clown.gif';
-sprites.enemigoRapido.src = './assets/max.gif';
-sprites.enemigoFantasma.src = './assets/blot.gif';
-sprites.enemigoJefe.src = 'https://placehold.co/40x40/8e44ad/ffffff?text=JEFE';
+let frameActual = 0;
+let contadorFrames = 0;
+const velocidadAnimacion = 10;
+
+// Placeholders estéticos ---
+sprites.jugador.src = './assets/kas.png';
+sprites.enemigoBasico.src = './assets/clown.png';
+sprites.enemigoRapido.src = './assets/max.png';
+sprites.enemigoFantasma.src = './assets/blot.png';
+sprites.enemigoJefe.src = './assets/boss.png';
+
+
+export const animConfig = {
+    jugador: { totalFrames: 2, vel: 8 },
+    enemigoBasico: { totalFrames: 4, vel: 10 },
+    enemigoRapido: { totalFrames: 4, vel: 5 },
+    enemigoFantasma: { totalFrames: 4, vel: 8 }
+};
+
+//Inmovil
 sprites.muroFijo.src = './assets/w.png';
-sprites.muroJugador.src = 'https://placehold.co/40x40/d63031/ff7675?text=X';
+sprites.muroJugador.src = './assets/w2.png';
 sprites.baratija.src = './assets/bread.png';
-sprites.puerta.src = 'https://placehold.co/40x40/00b894/ffffff?text=Salida';
+sprites.puerta.src = './assets/exit.png';
 sprites.poderEspecial.src = './assets/cotton.png';
+
+
+// SONIDOS
+
+export const sonidos = {
+    herido: new Audio('./assets/sonido/damage.mp3'),
+    recolectar: new Audio('./assets/sonido/grab.wav'),
+    victoria: new Audio('./assets/sonido/victory.mp3'),
+    derrota: new Audio('./assets/sonido/gameover.wav'),
+    pared: new Audio('./assets/sonido/wall.wav'),
+    invencible: new Audio('./assets/sonido/upgrade.wav'),
+    cerrado: new Audio('./assets/sonido/locked.wav'),
+    nivel: new Audio('./assets/sonido/levelup.wav'),
+    musicaFondo: new Audio('./assets/sonido/carnival-town.mp3'),
+    derrotaMusica: new Audio('./assets/sonido/lose.mp3')
+};
 
 // --- MAPAS (0=Suelo, 1=Muro, 2=Barricada, 3=Baratija, 4=Salida, 5=Dulce Invencibilidad) ---
 export const mapasNiveles = {

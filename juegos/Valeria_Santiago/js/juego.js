@@ -1,4 +1,4 @@
-import { configuracion, sprites, mapasNiveles, generarEnemigos } from './entidades.js';
+import { configuracion, sprites, mapasNiveles, generarEnemigos, animConfig, sonidos} from './entidades.js';
 const lienzo = document.querySelector('#lienzo');
 const ctx = lienzo.getContext('2d');
 
@@ -15,6 +15,7 @@ let totalObjetosNecesarios = 0;
 let juegoTerminado = false;
 let juegoGanado = false;
 let previsualizacionObstaculo = null;
+let juegoIniciado = false;
 
 // Variables del Jugador y Entidades
 let jugador = { x: 1, y: 1, esInvulnerable: false, tiempoInvulnerable: 0 };
@@ -50,6 +51,7 @@ function iniciarNivel() {
 function intentarAbrirPuerta() {
     if (objetosRecolectados < totalObjetosNecesarios) {
         const aviso = document.querySelector('#aviso-puerta');
+        sonidos.cerrado.play();
         aviso.classList.remove('oculto');
         
         setTimeout(() => {
@@ -63,11 +65,14 @@ function intentarAbrirPuerta() {
 function avanzarNivel() {
     if (nivelActual < maxNiveles) {
         nivelActual++;
+        sonidos.nivel.play();
         iniciarNivel();
     } else {
         juegoGanado = true;
         const textoPuntosFinales = document.querySelector('#puntuacion-final');
         if(textoPuntosFinales) textoPuntosFinales.innerText = puntuacion;
+        sonidos.victoria.play();
+        detenerMusica();
         document.querySelector('#pantalla-victoria').classList.remove('oculto');
     }
 }
@@ -114,6 +119,7 @@ lienzo.addEventListener('click', (evento) => {
 
     cuadricula[fila][col] = 2;
     puntuacion += 5;
+    sonidos.pared.play();
     
     previsualizacionObstaculo = null;
     actualizarInterfaz();
@@ -142,6 +148,7 @@ function comprobarInteracciones() {
         cuadricula[jugador.y][jugador.x] = 0;
         objetosRecolectados++;
         puntuacion += 200; 
+        sonidos.recolectar.play();
         actualizarInterfaz();
     }
 
@@ -150,6 +157,7 @@ function comprobarInteracciones() {
         cuadricula[jugador.y][jugador.x] = 0;
         puntuacion += 500;
         activarPoderEstrella();
+        sonidos.invencible.play();
     }
     
     // Salida del Nivel
@@ -188,10 +196,15 @@ function comprobarColisionEnemigos() {
         // Efecto visual de daño (sacudida de pantalla)
         lienzo.style.transform = "translate(5px, 5px)";
         setTimeout(() => lienzo.style.transform = "translate(0, 0)", 100);
+        sonidos.herido.play();
 
         if (vidas <= 0) {
             juegoTerminado = true;
             document.querySelector('#pantalla-derrota').classList.remove('oculto');
+            detenerMusica();
+            sonidos.derrotaMusica.play();
+            sonidos.derrota.play();
+            
         } else {
             jugador.esInvulnerable = true;
             jugador.tiempoInvulnerable = Date.now() + 1500; 
@@ -261,7 +274,7 @@ function actualizarEnemigos(tiempoActual) {
                     enemigo.y = sigY;
                 } else if (destino === 2) { 
                     if (enemigo.tipo === 'jefe') {
-                        cuadricula[sigY][sigX] = 0; // El jefe destruye paredes
+                        cuadricula[sigY][sigX] = 0; 
                         enemigo.x = sigX;
                         enemigo.y = sigY;
                     } else {
@@ -275,7 +288,58 @@ function actualizarEnemigos(tiempoActual) {
     comprobarColisionEnemigos();
 }
 
+
 // --- RENDERIZADO DEL JUEGO ---
+function dibujarJugador(ctx) {
+    const config = animConfig.jugador; 
+    const ts = configuracion.tamanoCasilla;
+
+    // 1. Lógica de frames
+    if (typeof jugador.frameActual === 'undefined') {
+        jugador.frameActual = 0;
+        jugador.contadorFrames = 0;
+    }
+
+    jugador.contadorFrames++;
+    if (jugador.contadorFrames >= config.vel) {
+        jugador.frameActual = (jugador.frameActual + 1) % config.totalFrames;
+        jugador.contadorFrames = 0;
+    }
+
+    const sx = jugador.frameActual * ts;
+
+    if (!jugador.esInvulnerable || Math.floor(Date.now() / 150) % 2 === 0) {
+        ctx.drawImage(
+            sprites.jugador,
+            sx, 0, ts, ts,
+            jugador.x * ts, jugador.y * ts, ts, ts
+        );
+    }
+}
+
+function dibujarEnemigo(ctx, enemigo) {
+    const config = animConfig[enemigo.tipo] || { totalFrames: 2, vel: 10 };
+    
+    if (typeof enemigo.frameActual === 'undefined') enemigo.frameActual = 0;
+    if (typeof enemigo.contadorFrames === 'undefined') enemigo.contadorFrames = 0;
+
+    enemigo.contadorFrames++;
+    if (enemigo.contadorFrames >= config.vel) {
+        enemigo.frameActual = (enemigo.frameActual + 1) % config.totalFrames;
+        enemigo.contadorFrames = 0;
+    }
+
+    // Dibujado: Asegúrate de usar los valores calculados
+    const sx = enemigo.frameActual * configuracion.tamanoCasilla;
+    
+    ctx.drawImage(
+        enemigo.img,
+        sx, 0, configuracion.tamanoCasilla, configuracion.tamanoCasilla, 
+        enemigo.x * configuracion.tamanoCasilla, enemigo.y * configuracion.tamanoCasilla, // Posición en canvas
+        configuracion.tamanoCasilla, configuracion.tamanoCasilla // Tamaño en canvas
+    );
+}
+
 function dibujar() {
     ctx.clearRect(0, 0, lienzo.width, lienzo.height);
     const ts = configuracion.tamanoCasilla;
@@ -298,31 +362,24 @@ function dibujar() {
         ctx.globalAlpha = 1.0;
     }
 
-    // Dibujar Enemigos 
-    enemigos.forEach(enemigo => {
-        if (jugador.esInvulnerable && Date.now() < jugador.tiempoInvulnerable) {
-            ctx.globalAlpha = 0.5; // Efecto visual de miedo
-        }
-        ctx.drawImage(enemigo.img, enemigo.x * ts, enemigo.y * ts, ts, ts);
-        ctx.globalAlpha = 1.0;
-    });
 
     enemigos.forEach(enemigo => {
-        if (enemigo.avisando) {
+        if (!juegoIniciado) return;
+
+        if (jugador.esInvulnerable && Date.now() < jugador.tiempoInvulnerable) {
+            ctx.globalAlpha = 0.5;
+        } else if (enemigo.avisando) {
             ctx.globalAlpha = 0.3;
         } else {
             ctx.globalAlpha = 1.0;
         }
 
-        ctx.drawImage(enemigo.img, enemigo.x * configuracion.tamanoCasilla, enemigo.y * configuracion.tamanoCasilla, configuracion.tamanoCasilla, configuracion.tamanoCasilla);
+        dibujarEnemigo(ctx, enemigo);
         
-        ctx.globalAlpha = 1.0;
+        ctx.globalAlpha = 1.0; 
     });
 
-    // Dibujar Jugador 
-    if (!jugador.esInvulnerable || Math.floor(Date.now() / 150) % 2 === 0) {
-        ctx.drawImage(sprites.jugador, jugador.x * ts, jugador.y * ts, ts, ts);
-    }
+    dibujarJugador(ctx);
 }
 
 // --- INTERFAZ Y BUCLE DE JUEGO ---
@@ -355,7 +412,7 @@ function reiniciarJuego(reinicioTotal = false) {
     location.reload();
 }
 
-// Eventos de botones (QuerySelector)
+// Eventos de botones 
 document.querySelector('#btn-reiniciar-derrota').addEventListener('click', () => reiniciarJuego(true));
 document.querySelector('#btn-reiniciar-victoria').addEventListener('click', () => reiniciarJuego(true));
 
@@ -377,8 +434,7 @@ function bucleJuego(tiempoActual) {
 const botonAccion = document.querySelector('#reiniciar-juego');
 const textoBoton = document.querySelector('#texto-boton');
 
-// Variable de estado global para controlar el flujo
-let juegoIniciado = false;
+
 
 function dibujarPantallaInicial() {
     dibujarFondo();
@@ -427,8 +483,11 @@ function dibujarFondo() {
 
 botonAccion.addEventListener('click', () => {
     if (!juegoIniciado) {
+        juegoIniciado = true;
+        botonAccion.textContent = "Reiniciar";
         iniciarJuego();
-        
+        sonidos.musicaFondo.play();
+
     } else {
         reiniciarJuego();
     }
@@ -441,7 +500,10 @@ function iniciarJuego() {
     console.log("Juego iniciado");
 }
 
-
+function detenerMusica() {
+    sonidos.musicaFondo.pause();
+    sonidos.musicaFondo.currentTime = 0; 
+}
 
 // Arranque
 iniciarNivel();
