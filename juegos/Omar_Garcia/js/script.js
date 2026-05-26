@@ -35,16 +35,26 @@ canvas.addEventListener("mousemove", (e) => {
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
+let zonaActual = "playa";
+let esTutorial = true;
+let framesFondo = [];
+
+const esPantallaFinal = window.location.pathname.includes("final.html");
+
+if (esPantallaFinal) {
+    zonaActual = "final";
+    esTutorial = false;
+    if (typeof jefe !== 'undefined') {
+        jefe.estado = "intro";
+    }
+}
+
 const configuracionZonas = {
     "playa": { frames: 16, ruta: "assets/fondosAnimados/playa/untitled_" },
     "canio": { frames: 1, ruta: "assets/fondosAnimados/canio/canio_" },
     "cuartoroto": { frames: 9, ruta: "assets/fondosAnimados/cuartoroto/cuartoroto_" },
     "nieve": {frames: 1, ruta: "assets/fondosAnimados/nieve/nieve_"}
 };
-
-let zonaActual = "playa";
-let framesFondo = [];
-let esTutorial = true;
 
 let transicion = {
     active: false,
@@ -257,7 +267,10 @@ let cristal = {
   y: fondoHeight / 2,
   frame: 0,
   timer: 0
-};
+}; 
+if (esPantallaFinal) {
+  cristal.active = false;
+}
 
 ///////// camaron tutorial
 let camaronFrames = [];
@@ -393,19 +406,33 @@ function updateDerrota() {
 
 function finalizarDerrota() {
     derrotaActive = false;
-    player.llaves = Math.max(0, player.llaves - 1);
     player.vida = player.maxVida;
     player.muerto = false;
-    player.x = 20; 
-    player.y = 72;
-    esTutorial = false;
-    tutorialActive = false;
-    camaron.active = false;
-    enemigos = [];
     proyectilesEnemigos = [];
     objetosSuelo = [];
-    zonaActual = "playa";
-    cargarFondosDeZona("playa");
+    enemigos = [];
+    if (esPantallaFinal) {
+        player.x = fondoWidth / 2;
+        player.y = fondoHeight - 30; 
+        
+        if (typeof jefe !== 'undefined') {
+            jefe.vida = jefe.maxVida; 
+            jefe.estado = "intro";  
+            jefe.frameActual = 0;
+            jefe.timer = 0;
+        }
+        console.log("Reiniciando pelea final...");
+    } 
+    else {
+        player.llaves = Math.max(0, player.llaves - 1);
+        player.x = 20; 
+        player.y = 72;
+        esTutorial = false;
+        tutorialActive = false;
+        camaron.active = false;
+        zonaActual = "playa";
+        cargarFondosDeZona("playa");
+    }
 }
 
 ////////// fondo animado
@@ -648,7 +675,7 @@ function updateProyectiles() {
           e.hitTimer = 12;
         }
       });
-      if (camaron.active) {
+      if (!esPantallaFinal && camaron.active) {
         let dx = p.x - camaron.x;
         let dy = p.y - camaron.y;
         let dist = Math.sqrt(dx * dx + dy * dy);
@@ -658,6 +685,26 @@ function updateProyectiles() {
           camaron.vida--;
           camaron.hitTimer = 6;
           if (camaron.vida <= 0) { camaron.muriendo = true; camaron.hitTimer = 12; }
+        }
+      }
+      if (typeof jefe !== 'undefined' && jefe.estado !== "inactivo" && jefe.estado !== "muerto") {
+        let golpeado = false;
+        if (jefe.estado === "fase1" && p.y <= 34) {
+            golpeado = true;
+        }
+        else if (jefe.estado === "fase2" && p.x >= 63 && p.x <= 97 && p.y >= 55 && p.y <= 89) {
+            golpeado = true;
+        }
+        else if (jefe.estado === "fase3") {
+            if (p.x <= 16 || p.x >= 144) {
+                golpeado = true;
+            }
+        }
+        if (golpeado && p.state === "move") {
+            p.state = "explode";
+            p.timer = 0;
+            jefe.vida--;
+            console.log("Vida del jefe: " + jefe.vida);
         }
       }
 
@@ -773,7 +820,7 @@ function updateEnemigos() {
 
     if (e.vida <= 0) {
             let suerte = Math.random(); 
-            if (suerte < 1/15) {
+            if (suerte < 1/10) {
                 objetosSuelo.push({ x: e.x, y: e.y, tipo: "llave", width: 16, height: 16 });
             }
             else if (suerte < 2/15) { 
@@ -786,7 +833,9 @@ function updateEnemigos() {
 }
 
 function updateCristal() {
+  if (esPantallaFinal) { cristal.active = false; return; }
     if (!cristal.active || transicion.active) return;
+    
     cristal.timer++;
     if (cristal.timer > 10) {
         cristal.frame = (cristal.frame + 1) % cristalFrames.length;
@@ -796,7 +845,11 @@ function updateCristal() {
     let dy = player.y - cristal.y;
     let dist = Math.sqrt(dx * dx + dy * dy);
     if (dist < 20 && keys["e"]) {
-        iniciarTransicion();
+        if (player.llaves >= 4) {
+            window.location.href = "final.html";
+        } else {
+            iniciarTransicion();
+        }
     }
 }
 
@@ -868,24 +921,30 @@ function updateProyectilesEnemigos() {
 function loop(timestamp) {
 
   if (derrotaActive) {
-        updateDerrota(); 
-    } else {
-  updateFondo(timestamp);
-  updatePlayer();
-  updatePlayerDirection();
-  updateAnimation();
-  updateTutorial();
-  updateProyectiles();
-  updateCamaron();
-  updateEnemigos();
-  updateProyectilesEnemigos();
-  updateObjetos();
-  updateCristal();
-  updateInvulnerability();
+    updateDerrota(); 
+  } else {
+    updateFondo(timestamp);
+    updatePlayer();
+    updatePlayerDirection();
+    updateAnimation();
+    if (!esPantallaFinal) {
+        updateTutorial();
+        updateCamaron();
+    }
+    
+    updateProyectiles();
+    updateEnemigos();
+    updateProyectilesEnemigos();
+    updateObjetos();
+    updateCristal();
+    updateInvulnerability();
+    if (typeof updateJefe === "function") {
+      updateJefe();
+    }
   }
+  
   updateTransicionLogic();
-
-  if (camaron.active && !camaron.muriendo) {
+  if (!esPantallaFinal && camaron.active && !camaron.muriendo) {
     let dx = player.x - camaron.x;
     let dy = player.y - camaron.y;
     if (Math.sqrt(dx*dx + dy*dy) < 15) Dañoamiprotakkk();
@@ -893,7 +952,6 @@ function loop(timestamp) {
   
   draw();
   requestAnimationFrame(loop);
-
 }
 
 ///////// draw general
@@ -906,33 +964,55 @@ function draw() {
   }
   drawProyectiles();
   drawProyectilesEnemigos();
-  drawCamaron();
+  if (!esPantallaFinal) {
+    drawCamaron();
+  }
+
   if (cristal.active) {
     drawCristal();
     let dx = player.x - cristal.x;
     let dy = player.y - cristal.y;
-    if (Math.sqrt(dx*dx + dy*dy) < 20 && !transicion.active) 
-      {
+    if (Math.sqrt(dx*dx + dy*dy) < 20 && !transicion.active) {
         ctx.drawImage(imgBurbujaE, Math.floor(cristal.x + offsetX - 16), Math.floor(cristal.y - 35), 32, 32);
     }
   }
+
   if (transicion.active) {
     let img = transicion.frames[transicion.frame];
     if (img && img.complete) {
       ctx.drawImage(img, offsetX, 0, 160, 144);
     }
   }
+
   drawEnemigos();
   drawObjetos();
   drawHUD();
-  drawDerrota();
-  if (tutorialActive) drawTutorial();
+if (typeof jefe !== 'undefined' && jefe.estado !== "inactivo" && jefe.estado !== "intro" && jefe.estado !== "muerto") {
+      ctx.fillStyle = "black"; 
+      ctx.fillRect(offsetX + 30, 134, 100, 4); 
+      ctx.fillStyle = "red"; 
+      ctx.fillRect(offsetX + 30, 134, (jefe.vida / jefe.maxVida) * 100, 4);
+  }
+
+  if (typeof drawJefe === "function") {
+    drawJefe(); 
+  }
+  if (typeof derrotaActive !== 'undefined' && derrotaActive) {
+    drawDerrota();
+  }
+  if (!esPantallaFinal && tutorialActive) {
+    drawTutorial();
+  }
 }
 
-/////////
 function drawFondo() {
   let x = (basewidth - 160) / 2;
-  if (framesFondo[currentFrame]) {
+  
+  if (zonaActual === "final") {
+    if (typeof imgFondoFinal !== 'undefined' && imgFondoFinal.complete) {
+        ctx.drawImage(imgFondoFinal, x, 0, 160, 144);
+    }
+  } else if (framesFondo[currentFrame]) {
     ctx.drawImage(framesFondo[currentFrame], x, 0, 160, 144);
   }
 }
