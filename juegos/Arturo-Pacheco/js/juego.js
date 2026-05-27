@@ -38,15 +38,8 @@ let puntaje;
 
 function iniciarJuego() {
     cancelAnimationFrame(cuadroAnimacion);
-
     jugador = new TanqueJugador(canvas.width / 2, canvas.height - 120, 3, 1, 2.2, colores);
-    enemigos = [
-
-        new TanqueEnemigo(200, 120, 3, 1, .5, colores ),
-        new TanqueEnemigo(600, 120, 3, 1, .5, colores),
-        new TanqueEnemigo(1000, 120, 3, 1, .5, colores)
-    ];
-
+    enemigo = new TanqueEnemigo(canvas.width / 2, 120, 3, 1, 0.8, colores);
     balasJugador = [];
     balasEnemigo = [];
     juegoActivo = true;
