@@ -53,6 +53,7 @@ let bloqueo = false;
 
 let puntaje = 0;
 let paresNivel = 0;
+let vidas = 0;
 
 const imagenes = {};
 const mensajes = {};
@@ -404,21 +405,25 @@ function verificarPareja() {
             actualizarHUD();
 
             setTimeout(() => {
-                animarFlip(
-                    primeraCarta,
-                    false
-                );
-                animarFlip(
-                    segundaCarta,
-                    false
-                );
-                primeraCarta = null;
-                segundaCarta = null;
-                bloqueo = false;
+
+            animarFlip(primeraCarta, false);
+            animarFlip(segundaCarta, false);
+
+            primeraCarta = null;
+            segundaCarta = null;
+
+            setTimeout(() => {
+
                 verificarDerrota();
-            }, 700);
+
+                if (vidas > 0) {
+                 bloqueo = false;
+                }
+            }, 600); 
+
+        }, 500);
         }
-    }, 900);
+    }, 700);
 }
 
 function verificarNivel() {
@@ -475,5 +480,5 @@ botonInicio.addEventListener("click", () => {
 });
 
 cargarImagenes(() => {
-    iniciarJuego();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 });
