@@ -1,5 +1,7 @@
+//clase base de tanque
 class Tanque {
     constructor(x, y, vida, escala, velocidad, grosorLinea, colorLinea, colorRelleno, areaColision) {
+        //se guardan los datos originales del tanque
         this.datosOriginales = {
             x,
             y,
@@ -14,11 +16,13 @@ class Tanque {
         };
 
         Object.assign(this, this.datosOriginales);
+        //define el limite dentro del canvas del tanque
         this.limite = 35 * this.escala;
         this.areaColision = areaColision;
         
     }
 
+    //dibuja los tanques
     dibujar(ctx, forma) {
         ctx.save();
         ctx.lineWidth = this.grosorLinea;
@@ -31,12 +35,14 @@ class Tanque {
         ctx.restore();
     }
 
+    //mantiene a los tanques dentro del canvas
     mover(canvas, posicion) {
         this.x = Math.max(this.limite, Math.min(posicion.x, canvas.width - this.limite));
         this.y = Math.max(this.limite, Math.min(posicion.y, canvas.height - this.limite));
         this.actualizarAreaColision();
     }
 
+    //actualiza el area de colision
     actualizarAreaColision() {
         if (!this.areaColision) return;
 
@@ -44,6 +50,7 @@ class Tanque {
         this.areaColision.y = this.y - this.areaColision.alto / 2;
     }
 
+    //detecta colision entre objetos
     detectarColision(objeto) {
         const a = this.areaColision;
         const b = objeto.areaColision;
@@ -55,13 +62,16 @@ class Tanque {
 
     }
 
+    //mantiene la cuanta de los puntos de vida de los tanques
     recibirDanio(danio) {
         this.vida = Math.max(0, this.vida - danio);
     }
 }
 
-/* Aqui se crea el tanque que controlara el jugador, dandole forma, hitobox y controles*/
-
+//class del tanque que controla el jugador
+//se configura area de colision del jugador
+//se dibuja el tanque jugador
+//control de movimiento del tanque jugador
 export class TanqueJugador extends Tanque {
     constructor(x, y, vida, escala, velocidad, colores) {
         const ancho = 70 * escala;
@@ -81,19 +91,14 @@ export class TanqueJugador extends Tanque {
 
     crear(ctx) {
 
-        //Aqui se dibuja la parte del cuerpo del tanque
+        //Aqui se dibuja la parte del cuerpo del tanque (cuadro)
         const cuerpo = new Path2D();
-        cuerpo.rect((this.x -  (this.escala * 28)), (this.y - (this.escala * 28)), (this.escala * 56), (this.escala * 56));
+        cuerpo.rect((this.x -  (this.escala * 25)), (this.y - (this.escala * 25)), (this.escala * 50), (this.escala * 50));
         this.dibujar(ctx, cuerpo);
 
-        //Aqui se dibuja la parte de la torreta 
-        const torreta = new Path2D();
-        torreta.arc( this.x, this.y, (this.escala * 16), 0, Math.PI * 2);
-        this.dibujar(ctx, torreta);
-
-        //Aqui se crea el cañon. Esto es lo que señalara hacia donde esta volteando el tanque
+        //Aqui se dibuja el cañon (rectangulo)
         const canion = new Path2D();
-        canion.rect(this.x - (this.escala * 5), this.y - (this.escala * 40), (this.escala * 10), (this.escala * 28));
+        canion.rect(this.x - (this.escala * 5), this.y - (this.escala * 45), (this.escala * 10), (this.escala * 20));
         this.dibujar(ctx, canion);
     }
 
@@ -123,8 +128,11 @@ export class TanqueJugador extends Tanque {
     }
 }
 
-/*Aqui se hace lo mismo que para el tanque enemigo (CPU) creandole forma, hitbox, y manera de moverse)*/
 
+//class del tanque que controla a los enemigos
+//se configura area de colision de los enemigos
+//se dibuja a los tanques enemigos
+//control de movimiento de los tanuqes enemigos
 export class TanqueEnemigo extends Tanque {
     constructor(x, y, vida, escala, velocidad, colores) {
         const ancho = 70 * escala;
@@ -143,21 +151,15 @@ export class TanqueEnemigo extends Tanque {
     }
 
     crear(ctx) {
-        /*Cuerpo*/
+
         const cuerpo = new Path2D();
-        cuerpo.rect(this.x - (this.escala  * 28), this.y - 28 * this.escala, 56 * this.escala, 56 * this.escala);
+        cuerpo.rect(this.x - (this.escala  * 25), this.y - (this.escala * 25), this.escala * 50, this.escala * 50);
 
         this.dibujar(ctx, cuerpo);
 
-        /*Torreta*/
-        const torreta = new Path2D();
-        torreta.arc(this.x, this.y, this.escala * 16, 0, Math.PI * 2);
 
-        this.dibujar(ctx, torreta);
-
-        /*Cañon*/
         const canion = new Path2D();
-        canion.rect(this.x - (this.escala * 5), this.y + (this.escala * 12), (this.escala * 10), (this.escala * 28));
+        canion.rect(this.x - (this.escala * 5), this.y + (this.escala * 25), (this.escala * 10), (this.escala * 20));
         this.dibujar(ctx, canion);
     }
 
@@ -185,8 +187,11 @@ export class TanqueEnemigo extends Tanque {
     }
 }
 
-/*Aqui es donde se crea la logica de la bala, cuando spawnea, cuando despawnea, ademas de detecta sus coliciones con los bordes del canvas o con un tanque*/
-
+//clase que activa la bala
+//mueve la bala
+//dibuja la bala
+//desactiva la bala cuando sale del canvas
+//controla el area de colision de la bala
 export class Bala {
     constructor(x, y, velocidadX, velocidadY, danio, color) {
         this.x = x;
