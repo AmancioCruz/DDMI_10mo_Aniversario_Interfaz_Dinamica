@@ -1,11 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Star Pop | DDMI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../space-defender/css/estilos.css">
+    <link rel="icon" href="recursos/img/normal.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <h1>Holo</h1>
+    <header class="hud-superior">
+        <a class="marca-juego" href="../../index.html">
+            <img src="../../recursos/identidad/simbolo-decimo-aniversario-ddmi.png" alt="">
+            <span>
+                <strong>Star Pop</strong>
+                <small>DDMI - Decimo Aniversario</small>
+            </span>
+        </a>
+
+        <section class="estado-juego" aria-label="Estado del juego">
+            <p><i class="fa-solid fa-signal"></i> Status: Activo</p>
+            <p><i class="fa-solid fa-star"></i> Mejor puntaje: <span id="mejorPuntuaje">0</span></p>
+            <p><i></i> Puntaje: <span id="puntajeActual">0</span></p>
+        </section>
+
+        <nav class="menu-juego" aria-label="Menu del juego">
+            <ul>
+                <li>
+                    <a href="../../index.html">
+                        <i class="fa-solid fa-house"></i>
+                        Inicio
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="escenario">
+        <aside class="panel-juego">
+            <p class="etiqueta-panel">Mission 01</p>
+            <h1>Pizza Pop</h1>
+            <p>Sigue el ritmo y consigue la mayor puntuación posible.
+                Evita fallar demasiadas notas o perderás la partida.
+            </p>
+
+            <ul class="controles-juego">
+                <li><i class="fa-solid fa-arrow-up"></i> Carril arriba</li>
+                <li><i class="fa-solid fa-arrow-down"></i> Carril abajo</li>
+                <li><i class="fa-solid fa-arrow-left"></i> Carril izquierda</li>
+                <li><i class="fa-solid fa-arrow-right"></i> Carril derecha</li>
+                <li><i class="fa-solid fa-keyboard"></i> Enter para iniciar</li>
+            </ul>
+
+            <button class="boton-hud" type="button" id="reiniciar-juego">
+                <i class="fa-solid fa-play"></i>
+                <span>Iniciar</span>
+            </button>
+        </aside>
+
+        <section class="marco-canvas" aria-label="Area de juego">
+            <canvas id="canvas" width="1000" height="600"></canvas>
+        </section>
+    </main>
+
+
 </body>
+<script type="module" src="js/script.js"></script>
+
 </html>
