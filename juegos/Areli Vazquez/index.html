@@ -1,11 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <title>Pixeles Peligrosos</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="css/estilo.css">
 </head>
+
 <body>
-    
+
+    <!-- HUD SUPERIOR -->
+    <header class="hud-superior">
+
+        <section class="marca-juego">
+
+            <span class="logo-neon">
+                <i class="fa-solid fa-cube"></i>
+            </span>
+
+            <div>
+                <h1>Pixeles Peligrosos</h1>
+                <p>Arcade Neon Survival</p>
+            </div>
+
+        </section>
+
+        <section class="estado-juego">
+
+            <p>
+                <i class="fa-solid fa-heart"></i>
+                Vidas:
+                <span id="vidas-ui">3</span>
+            </p>
+
+            <p>
+                <i class="fa-solid fa-layer-group"></i>
+                Niveles:
+                <span id="nivel-ui">3</span>
+            </p>
+
+        </section>
+
+        <nav class="menu-juego" aria-label="Menu del juego">
+            <ul>
+                <li>
+                    <a href="../../index.html">
+                        <i class="fa-solid fa-house"></i>
+                        Inicio
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="escenario">
+
+        <!-- PANEL IZQUIERDO -->
+        <aside class="panel-juego">
+
+            <p class="etiqueta-panel">
+                Modo Arcade
+            </p>
+
+            <h2>Sobrevive</h2>
+
+            <p>
+                Esquiva enemigos, alcanza la meta y supera
+                cada habitación sin perder todas tus vidas.
+            </p>
+
+            <ul class="controles-juego">
+
+                <li>
+                    <i class="fa-solid fa-arrow-up"></i>
+                    Mover arriba
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-arrow-down"></i>
+                    Mover abajo
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Mover izquierda
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-arrow-right"></i>
+                    Mover derecha
+                </li>
+
+            </ul>
+
+        </aside>
+
+        <!-- CANVAS -->
+        <section class="marco-canvas"
+            aria-label="Area principal del juego">
+
+            <canvas
+                id="canvas"
+                width="1000"
+                height="600">
+            </canvas>
+
+        </section>
+
+    </main>
+
+    <script type="module" src="js/juego.js"></script>
+
 </body>
+
 </html>
