@@ -1,11 +1,246 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <title>Nonograma</title>
+
+    <link rel="stylesheet" href="../../estilo/estilo.css">
+
+    <link rel="stylesheet" href="estilo/nonograma.css">
+
 </head>
+
 <body>
-    
+
+    <header class="encabezado">
+
+        <a class="marca" href="#">
+
+            <div class="marca-texto">
+
+                <strong>NONOGRAMA</strong>
+
+                <small>Christopher Rodriguez</small>
+
+            </div>
+
+        </a>
+
+    </header>
+
+    <div class="estado-menu">
+
+        <span>Sistema activo</span>
+
+        <span>DDMI Canvas</span>
+
+    </div>
+    <div id="menu-principal" class="menu-principal">
+
+        <h1 class="titulo-menu">
+            PIXEL LOGIC
+        </h1>
+
+        <div class="highscores-menu">
+
+            <p id="highscore-facil">
+                Fácil: --
+            </p>
+
+            <p id="highscore-intermedio">
+                Intermedio: --
+            </p>
+
+            <p id="highscore-dificil">
+                Difícil: --
+            </p>
+
+        </div>
+
+        <div class="botones-dificultad">
+
+            <button onclick="iniciarJuego('facil')">
+                Fácil
+            </button>
+
+            <button onclick="iniciarJuego('intermedio')">
+                Intermedio
+            </button>
+
+            <button onclick="iniciarJuego('dificil')">
+                Difícil
+            </button>
+
+        </div>
+
+        <button class="boton-reglas" onclick="mostrarReglas()">
+
+            Cómo jugar
+        </button>
+
+    </div>
+
+    <div id="pantalla-reglas" class="pantalla-reglas" style="display:none;">
+
+        <h2>Cómo jugar</h2>
+
+        <p>
+            El objetivo del juego es descubrir
+            el dibujo oculto rellenando
+            correctamente las casillas.
+        </p>
+
+        <p>
+            Los números que aparecen arriba
+            y a la izquierda del tablero
+            son pistas.
+        </p>
+
+        <p>
+            Cada número indica cuántos cuadros
+            seguidos deben ir rellenos
+            en esa fila o columna.
+        </p>
+
+        <p>
+            Ejemplo:
+            si aparece un 5,
+            significa que hay
+            5 cuadros seguidos rellenos.
+        </p>
+
+        <p>
+            Si aparecen varios números,
+            como 3 y 2,
+            significa que existen
+            dos grupos separados,
+            uno de 3 cuadros
+            y otro de 2.
+        </p>
+
+        <p>
+            Entre cada grupo
+            debe existir mínimo
+            un espacio vacío.
+        </p>
+
+        <p>
+            Usa las X para marcar
+            lugares donde crees
+            que no van cuadros rellenos.
+        </p>
+
+        <p>
+            Click izquierdo:
+            rellenar cuadros.
+        </p>
+
+        <p>
+            Click derecho:
+            colocar o quitar X.
+        </p>
+
+        <p>
+            Cuando completas correctamente
+            una fila o columna,
+            las pistas se tacharán
+            automáticamente.
+        </p>
+
+        <p>
+            También puedes usar
+            el botón de verificar
+            para encontrar errores.
+        </p>
+
+        <button onclick="volverMenu()">
+
+            Volver
+
+        </button>
+
+    </div>
+    <main class="pantalla-juego" id="pantalla-juego" style="display:none;">
+
+        <section class="panel-juego">
+
+            <div class="encabezado-juego">
+
+                <h1>Pixel Logic</h1>
+
+                <p>
+                    Completa el patrón usando
+                    las pistas numéricas.
+                </p>
+
+                <p id="highscore">
+                    High Score: --
+                </p>
+
+                <p id="tamanio-tablero">
+                    Tamaño: 15 x 15
+                </p>
+
+                <p id="timer">
+                    Tiempo: 0s
+                </p>
+
+            </div>
+            <div class="controles-movil">
+
+                <button id="modo-rellenar" class="activo">
+                    Rellenar
+                </button>
+
+                <button id="modo-x">
+                    X
+                </button>
+
+            </div>
+
+            <div class="contenedor-nonograma">
+
+                <div class="zona-central">
+
+                    <canvas id="nonogramaCanvas" width="1000" height="1000"></canvas>
+
+                </div>
+
+            </div>
+
+            <div class="panel-controles">
+
+                <button id="reiniciar">
+
+                    Reiniciar
+
+                </button>
+
+                <button id="verificar">
+
+                    Verificar
+
+                </button>
+
+                <button id="volver-menu">
+
+                    Volver al menú
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../Christopher-Rodriguez-Nonograma/scripts/nonograma.js" defer></script>
+
 </body>
+
 </html>
