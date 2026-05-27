@@ -66,7 +66,9 @@ function generarEnemigos() {
             x = Math.random() * 500 + 250;
             y = Math.random() * 300 + 100;
         }
-        while(x > 430 && x < 570 && y > 230 && y < 370);
+        while((x > 430 && x < 570 && y > 230 && y < 370) ||
+            (habitacionActual === 1 && x > 300 && x < 380 && y > 220 && y < 320)
+        );
         let dificultad = habitacionActual + 1;
         let speed = Math.random() * 3 + dificultad;
 
@@ -301,6 +303,10 @@ function verificarColision() {
 
 // CHECKPOINT
 function verificarCheckpoint() {
+
+    enZonaSegura = false;
+
+    // SAFE CENTRAL
     let safeX = 450;
     let safeY = 250;
 
@@ -318,8 +324,23 @@ function verificarCheckpoint() {
 
         enZonaSegura = true;
     }
-    else {
-        enZonaSegura = false;
+
+    // ZONA SEGURA INICIAL NIVEL 2
+    if (habitacionActual === 1) {
+
+        let inicioX = 300;
+        let inicioY = 220;
+        let inicioWidth = 80;
+        let inicioHeight = 100;
+
+        if (
+            jugador.x < inicioX + inicioWidth &&
+            jugador.x + jugador.width > inicioX &&
+            jugador.y < inicioY + inicioHeight &&
+            jugador.y + jugador.height > inicioY
+        ) {
+            enZonaSegura = true;
+        }
     }
 }
 
