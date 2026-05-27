@@ -1,3 +1,4 @@
+// importar objetos y funciones principales del juego
 import {
 
     barra,
@@ -13,28 +14,38 @@ import {
 
     reiniciarPelota
 
-} from "./entidades.js";
+} from "./objetos.js";
 
 
+// obtener canvas y contexto
 const canvas = document.querySelector("#gameCanvas");
 const ctx = canvas.getContext("2d");
 
+
+// elementos de interfaz
 const btnStart = document.querySelector("#btnStart");
 const btnIzquierda = document.querySelector("#btnIzquierda");
 const btnDerecha = document.querySelector("#btnDerecha");
+
 const textoVidas = document.querySelector("#vidas");
 const textoScore = document.querySelector("#score");
 
+
+// estados del juego
 let juegoIniciado = false;
 let vidas = 3;
 let gameOver = false;
 let youWin = false;
-let score = 0;
+
+
+// objeto compartido para score
 const scoreData = {
 
     valor: 0
 };
-// imagen de la nave
+
+
+// cargar imagen personalizada de nave
 const inputNave = document.querySelector("#inputNave");
 
 inputNave.addEventListener("change", (event) => {
@@ -48,7 +59,7 @@ inputNave.addEventListener("change", (event) => {
 });
 
 
-// teclado
+// control de movimiento
 const teclas = {
 
     izquierda: false,
@@ -56,7 +67,7 @@ const teclas = {
 };
 
 
-// detectar teclas
+// detectar teclas presionadas
 window.addEventListener("keydown", (event) => {
 
     if (event.code === "ArrowLeft") {
@@ -68,10 +79,10 @@ window.addEventListener("keydown", (event) => {
 
         teclas.derecha = true;
     }
-    
 });
 
 
+// detectar teclas soltadas
 window.addEventListener("keyup", (event) => {
 
     if (event.code === "ArrowLeft") {
@@ -84,7 +95,9 @@ window.addEventListener("keyup", (event) => {
         teclas.derecha = false;
     }
 });
-// mover izquierda touch
+
+
+// controles touch para celular
 btnIzquierda.addEventListener("touchstart", () => {
 
     teclas.izquierda = true;
@@ -96,7 +109,6 @@ btnIzquierda.addEventListener("touchend", () => {
 });
 
 
-// mover derecha touch
 btnDerecha.addEventListener("touchstart", () => {
 
     teclas.derecha = true;
@@ -108,6 +120,7 @@ btnDerecha.addEventListener("touchend", () => {
 });
 
 
+// iniciar o reiniciar juego
 btnStart.addEventListener("click", () => {
 
     if (gameOver || youWin) {
@@ -115,12 +128,11 @@ btnStart.addEventListener("click", () => {
         reiniciarJuego();
     }
 
-
     juegoIniciado = true;
 });
 
 
-// dibujar game over
+// pantalla game over
 function dibujarGameOver() {
 
     ctx.fillStyle = "white";
@@ -137,6 +149,9 @@ function dibujarGameOver() {
         canvas.height / 2
     );
 }
+
+
+// pantalla victoria
 function dibujarYouWin() {
 
     ctx.fillStyle = "cyan";
@@ -153,6 +168,9 @@ function dibujarYouWin() {
         canvas.height / 2
     );
 }
+
+
+// reiniciar estados del juego
 function reiniciarJuego() {
 
     vidas = 3;
@@ -173,7 +191,7 @@ function reiniciarJuego() {
     reiniciarPelota(pelota);
 
 
-    // reiniciar ladrillos
+    // restaurar vidas de ladrillos
     for (
 
         let i = 0;
@@ -196,6 +214,7 @@ function reiniciarJuego() {
 // loop principal
 function actualizar() {
 
+    // limpiar canvas
     ctx.clearRect(
         0,
         0,
@@ -204,6 +223,7 @@ function actualizar() {
     );
 
 
+    // mover nave
     moverBarra(
         teclas,
         barra,
@@ -211,6 +231,7 @@ function actualizar() {
     );
 
 
+    // actualizar pelota
     if (juegoIniciado) {
 
         moverPelota(
@@ -220,14 +241,16 @@ function actualizar() {
 
             textoScore,
             scoreData,
+
             textoVidas,
             vidas,
             gameOver,
+
             reiniciarPelota
-            
         );
 
 
+        // detectar caída de pelota
         if (
 
             pelota.y - pelota.radio > canvas.height
@@ -238,8 +261,11 @@ function actualizar() {
 
             textoVidas.textContent = vidas;
 
+
             reiniciarPelota(pelota);
 
+
+            // detectar derrota
             if (vidas <= 0) {
 
                 gameOver = true;
@@ -250,6 +276,7 @@ function actualizar() {
     }
 
 
+    // dibujar elementos
     dibujarBarra(
         ctx,
         barra
@@ -259,35 +286,45 @@ function actualizar() {
         ctx,
         pelota
     );
+
     dibujarLadrillos(ctx);
+
+
+    // revisar victoria
     const ladrillosRestantes = ladrillos.filter(
 
-    ladrillo => ladrillo.vidas > 0
-);
+        ladrillo => ladrillo.vidas > 0
+    );
 
 
-if (ladrillosRestantes.length === 0) {
+    if (ladrillosRestantes.length === 0) {
 
-    youWin = true;
+        youWin = true;
 
-    juegoIniciado = false;
-    gameOver = false;
-}
+        juegoIniciado = false;
+
+        gameOver = false;
+    }
 
 
+    // mostrar game over
     if (gameOver) {
 
         dibujarGameOver();
     }
+
+
+    // mostrar victoria
     if (youWin) {
 
-    dibujarYouWin();
-}
+        dibujarYouWin();
+    }
 
 
+    // repetir loop
     requestAnimationFrame(actualizar);
 }
 
 
-// iniciar loop
+// iniciar loop principal
 actualizar();

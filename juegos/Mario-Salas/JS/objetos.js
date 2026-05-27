@@ -26,9 +26,13 @@ const pelota = {
 
     color: "white"
 };
-// ladrillos
+
+
+// arreglo donde se guardan los ladrillos
 const ladrillos = [];
 
+
+// configuracion de matriz de ladrillos
 const filas = 5;
 const columnas = 8;
 
@@ -36,6 +40,9 @@ const anchoLadrillo = 80;
 const altoLadrillo = 30;
 
 const separacion = 25;
+
+
+// calcular ancho total para centrar ladrillos
 const anchoTotal =
 
     columnas *
@@ -45,11 +52,15 @@ const anchoTotal =
     - separacion;
 
 
+// centrar ladrillos horizontalmente
 const offsetX =
 
     (1280 - anchoTotal) / 2;
+
 const offsetY = 60;
-// crear ladrillos
+
+
+// generar ladrillos automaticamente
 for (
 
     let fila = 0;
@@ -86,12 +97,14 @@ for (
 
             alto: altoLadrillo,
 
+            // dificultad progresiva por filas
             vidas: Math.max(1, 4 - fila)
         });
     }
 }
 
-// mover nave
+
+// mover barra horizontalmente
 function moverBarra(
     teclas,
     barra,
@@ -109,7 +122,7 @@ function moverBarra(
     }
 
 
-    // limites pantalla
+    // limitar movimiento dentro del canvas
     if (barra.x < 0) {
 
         barra.x = 0;
@@ -122,9 +135,10 @@ function moverBarra(
 }
 
 
-// mover pelota
+// mover pelota y detectar colisiones
 function moverPelota(
-      pelota,
+
+    pelota,
     barra,
     canvas,
 
@@ -177,6 +191,7 @@ function moverPelota(
 
     ) {
 
+        // detectar lado de colision
         const choqueIzquierda =
             Math.abs((pelota.x + pelota.radio) - barra.x);
 
@@ -213,7 +228,7 @@ function moverPelota(
         }
 
 
-        // rebote arriba
+        // rebote superior
         else {
 
             pelota.velocidadY *= -1;
@@ -221,55 +236,57 @@ function moverPelota(
             pelota.y = barra.y - pelota.radio;
         }
     }
+
+
     // colision con ladrillos
-for (
+    for (
 
-    let i = 0;
-    i < ladrillos.length;
-    i++
+        let i = 0;
+        i < ladrillos.length;
+        i++
 
-) {
+    ) {
 
-    const ladrillo = ladrillos[i];
-
-
-    // ignorar destruidos
-    if (ladrillo.vidas > 0) {
-
-        if (
-
-            pelota.x + pelota.radio > ladrillo.x &&
-            pelota.x - pelota.radio < ladrillo.x + ladrillo.ancho &&
-
-            pelota.y + pelota.radio > ladrillo.y &&
-            pelota.y - pelota.radio < ladrillo.y + ladrillo.alto
-
-        ) {// destruir ladrillo
-    ladrillo.vidas--;
+        const ladrillo = ladrillos[i];
 
 
-// sumar score solo al destruir
-if (ladrillo.vidas <= 0) {
+        // verificar ladrillos activos
+        if (ladrillo.vidas > 0) {
 
-    scoreData.valor += 100;
+            if (
 
-    textoScore.textContent = scoreData.valor;
-}
+                pelota.x + pelota.radio > ladrillo.x &&
+                pelota.x - pelota.radio < ladrillo.x + ladrillo.ancho &&
+
+                pelota.y + pelota.radio > ladrillo.y &&
+                pelota.y - pelota.radio < ladrillo.y + ladrillo.alto
+
+            ) {
+
+                // quitar vida al ladrillo
+                ladrillo.vidas--;
 
 
-    // rebote
-    pelota.velocidadY *= -1;
+                // sumar puntos solo al destruir
+                if (ladrillo.vidas <= 0) {
 
-    break;
+                    scoreData.valor += 100;
 
-           
+                    textoScore.textContent = scoreData.valor;
+                }
+
+
+                // rebote pelota
+                pelota.velocidadY *= -1;
+
+                break;
+            }
         }
     }
 }
-}
 
 
-// reiniciar pelota
+// reiniciar pelota al centro
 function reiniciarPelota(
     pelota
 ) {
@@ -294,7 +311,7 @@ function reiniciarPelota(
     }
 
 
-    // siempre iniciar hacia abajo
+    // iniciar hacia abajo
     pelota.velocidadY = velocidad;
 }
 
@@ -341,6 +358,8 @@ function dibujarPelota(
 
     ctx.fill();
 }
+
+
 // dibujar ladrillos
 function dibujarLadrillos(
     ctx
@@ -360,25 +379,27 @@ function dibujarLadrillos(
         // no dibujar destruidos
         if (ladrillo.vidas > 0) {
 
-           if (ladrillo.vidas === 4) {
+            // cambiar color segun resistencia
+            if (ladrillo.vidas === 4) {
 
-    ctx.fillStyle = "red";
-}
+                ctx.fillStyle = "red";
+            }
 
-else if (ladrillo.vidas === 3) {
+            else if (ladrillo.vidas === 3) {
 
-    ctx.fillStyle = "orange";
-}
+                ctx.fillStyle = "orange";
+            }
 
-else if (ladrillo.vidas === 2) {
+            else if (ladrillo.vidas === 2) {
 
-    ctx.fillStyle = "yellow";
-}
+                ctx.fillStyle = "yellow";
+            }
 
-else {
+            else {
 
-    ctx.fillStyle = "cyan";
-}
+                ctx.fillStyle = "cyan";
+            }
+
 
             ctx.fillRect(
 
@@ -405,5 +426,6 @@ export {
     dibujarBarra,
     dibujarPelota,
     dibujarLadrillos,
+
     reiniciarPelota
 };
