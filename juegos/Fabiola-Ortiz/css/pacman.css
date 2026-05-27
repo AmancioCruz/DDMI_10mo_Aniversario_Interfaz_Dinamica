@@ -1,0 +1,181 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#050505;
+    color:white;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/* ========================= */
+/* HEADER */
+/* ========================= */
+
+.hud-superior{
+    height:80px;
+    background:black;
+    border-bottom:3px solid #ffe600;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 30px;
+}
+
+.marca-juego{
+    display:flex;
+    align-items:center;
+    gap:15px;
+
+    color:white;
+    text-decoration:none;
+}
+
+.marca-juego img{
+    width:55px;
+}
+
+.marca-juego strong{
+    display:block;
+    font-size:28px;
+    color:#ffe600;
+}
+
+.marca-juego small{
+    color:#00d9ff;
+}
+
+.estado-juego{
+    display:flex;
+    gap:30px;
+    color:#00ff99;
+    font-size:18px;
+}
+
+.menu-juego ul{
+    list-style:none;
+}
+
+.menu-juego a{
+    color:white;
+    text-decoration:none;
+    font-size:18px;
+}
+
+/* ========================= */
+/* ESCENARIO */
+/* ========================= */
+
+.escenario{
+    width:95%;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:300px 1fr;
+
+    gap:25px;
+
+    padding:30px 0;
+}
+
+/* ========================= */
+/* PANEL */
+/* ========================= */
+
+.panel-juego{
+    background:#111;
+    border:3px solid #ff00d4;
+
+    padding:25px;
+
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.etiqueta-panel{
+    color:#ff00d4;
+    font-size:14px;
+}
+
+.panel-juego h1{
+    color:#ffe600;
+    font-size:42px;
+}
+
+.panel-juego p{
+    line-height:1.6;
+    color:#ddd;
+}
+
+.controles-juego{
+    list-style:none;
+
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.controles-juego li{
+    border-bottom:1px solid #333;
+    padding-bottom:10px;
+}
+
+.controles-juego i{
+    color:#00d9ff;
+    margin-right:10px;
+}
+
+/* ========================= */
+/* BOTON */
+/* ========================= */
+
+.boton-hud{
+    height:60px;
+
+    border:none;
+
+    background:#ffe600;
+    color:black;
+
+    font-size:20px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.2s;
+}
+
+.boton-hud:hover{
+    transform:scale(1.03);
+}
+
+/* ========================= */
+/* CANVAS */
+/* ========================= */
+
+.marco-canvas{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:black;
+
+    border:3px solid #ffe600;
+
+    padding:10px;
+}
+
+canvas{
+    background:#000;
+    display:block;
+
+    width:100%;
+    max-width:1000px;
+
+    border:3px solid #0044ff;
+}
