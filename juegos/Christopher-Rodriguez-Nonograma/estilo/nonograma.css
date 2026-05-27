@@ -285,11 +285,32 @@
         align-items: center;
     }
 
+    .contenedor-nonograma {
+
+        width: 100%;
+
+        overflow-x: auto;
+        overflow-y: auto;
+
+        display: flex;
+
+        justify-content: flex-start;
+
+        padding-bottom: 10px;
+    }
+
+    .zona-central {
+
+        min-width: max-content;
+    }
+
     #nonogramaCanvas {
 
-        max-width: 100%;
+        max-width: none;
 
         height: auto;
+
+        flex-shrink: 0;
     }
 
     #highscore {
