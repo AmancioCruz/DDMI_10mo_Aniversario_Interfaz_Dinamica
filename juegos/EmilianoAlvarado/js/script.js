@@ -1,7 +1,55 @@
+//sonidos
+const sonidoBloque = new Audio("rec/r0t0r-8-bit-laser-151672.mp3");
+const sonidoPlataforma = new Audio("rec/freesound_community-one_beep-99630.mp3");
+
 //Puntaje
 let puntaje = 0
 const scoreElemento = document.getElementById("valor-puntaje");
 
+// Estado del juego
+let juegoIniciado = false;
+let juegoTerminado = false;
+
+// Pantalla overlay
+function dibujarPantalla(mensaje, textoBoton){
+
+    context.fillStyle = "rgba(82, 101, 106, 0.7)";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    context.fillStyle = "Black";
+    context.font = "48px Arial";
+    context.textAlign = "center";
+
+    context.fillText(
+        mensaje,
+        canvas.width / 2,
+        canvas.height / 2 - 20
+    );
+
+    context.font = "24px Arial";
+
+    context.fillText(
+        textoBoton,
+        canvas.width / 2,
+        canvas.height / 2 + 40
+    );
+}
+
+// Botón iniciar/reiniciar
+const botonInicio = document.getElementById("reiniciar-juego");
+
+botonInicio.addEventListener("click", () => {
+
+    if(!juegoIniciado || juegoTerminado){
+
+        juegoIniciado = true;
+        juegoTerminado = false;
+
+        resetearJuego();
+
+        gameLoop();
+    }
+});
 
 //Bola
 class Bola {
@@ -25,6 +73,7 @@ class Bola {
     }
 }
 
+//Plataforma
 class Plataforma {
     constructor(x, y, ancho, alto, velocidad){
         this.x = x
@@ -42,6 +91,7 @@ class Plataforma {
     }
 }
 
+//Bloques
 class Bloque {
     constructor(x, y, ancho, alto){
         this.x = x;
@@ -60,7 +110,6 @@ class Bloque {
 }
 
 //Juego
-
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 
@@ -73,19 +122,29 @@ const plataforma = new Plataforma(
     20
 );
 
+// Mostrar pantalla inicial
+dibujarFondo();
+
+dibujarPantalla(
+    "BREAK THROUGH",
+    "Presiona el botón Iniciar"
+);
+
+
+//Fondo
 function dibujarFondo(){
 
-    // Fondo blanco
-    context.fillStyle = "aliceblue";
+    //Fondo blanco
+    context.fillStyle = "white";
     context.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Cuadrícula
+    //Cuadrícula
     context.strokeStyle = "#adadad";
     context.lineWidth = 1;
 
     const tamañoCuadricula = 50;
 
-    // Líneas verticales
+    //Líneas verticales
     for(let x = 0; x <= canvas.width; x += tamañoCuadricula){
         context.beginPath();
         context.moveTo(x, 0);
@@ -93,7 +152,7 @@ function dibujarFondo(){
         context.stroke();
     }
 
-    // Líneas horizontales
+    //Líneas horizontales
     for(let y = 0; y <= canvas.height; y += tamañoCuadricula){
         context.beginPath();
         context.moveTo(0, y);
@@ -103,7 +162,6 @@ function dibujarFondo(){
 }
 
 //Ladrillos
-
 const bloques = []
 
 function crearPared(){
@@ -148,7 +206,6 @@ function crearPared(){
 }
 
 //Dibujar los ladrillos
-
 function dibujarLadrillos(){
     bloques.forEach(bloque =>{
         if(bloque.status === 1){
@@ -159,13 +216,15 @@ function dibujarLadrillos(){
                     bola.velocidadY = -bola.velocidadY;
                     bloque.status = 0;
                     puntaje +=10;
+                    sonidoBloque.currentTime = 0; 
+                    sonidoBloque.play();
                     scoreElemento.textContent = puntaje;
-                    
                 }
         }
     })
 }
 
+//Controles
 document.addEventListener("keydown",(event)=>{
     if(event.key === "ArrowLeft"){
         plataforma.mover(-1);
@@ -180,8 +239,10 @@ document.addEventListener("keyup",(event)=>{
     }
 })
 
+
 crearPared();
 
+//Resetear el juego
 function resetearJuego(){
 
     bola.x = canvas.width / 2;
@@ -197,8 +258,9 @@ function resetearJuego(){
     });
 }
 
-let incrementoVelocidad = 0.2;
-let tiempoIncremento = 10000;
+//Aumento de velocidad en la bola
+let incrementoVelocidad = 0.3;
+let tiempoIncremento = 5000;
 
 setInterval(() => {
 
@@ -216,31 +278,46 @@ setInterval(() => {
 
 }, tiempoIncremento);
 
+//Gameloop
 function gameLoop(){
     dibujarFondo();
 
     bola.update()
     bola.draw(context);
 
+    //Colision con los bordes
     if(bola.x - bola.radio <0 || bola.x + bola.radio > canvas.width){
         bola.velocidadX = -bola.velocidadX;
     }
 
+    //Colision con el techo
     if(bola.y - bola.radio <0){
         bola.velocidadY = -bola.velocidadY;
     }
 
+    //Colision de la plataforma
     if(bola.x + bola.radio > plataforma.x &&
        bola.x - bola.radio < plataforma.x + plataforma.ancho &&
        bola.y + bola.radio > plataforma.y){
         bola.velocidadY = -bola.velocidadY;
+        sonidoPlataforma.currentTime = 0; 
+        sonidoPlataforma.play();
        }
 
+    //Concicion de derrota   
     if(bola.y + bola.radio > canvas.height){
-        alert("Perdiste! Fin del juego")
-        resetearJuego();
-    }
 
+    juegoTerminado = true;
+
+    dibujarPantalla(
+        "GAME OVER",
+        "Presiona Iniciar para reiniciar"
+    );
+
+    return;
+}
+
+    //Condicion de victoria
     if(bloques.every(bloque => bloque.status === 0)){
         alert("Haz ganado!");
     }
@@ -252,4 +329,4 @@ function gameLoop(){
     requestAnimationFrame(gameLoop);
 }
 
-gameLoop();
+
