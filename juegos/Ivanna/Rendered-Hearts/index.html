@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rendered Hearts | DDMI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <header class="hud-superior">
+    <a class="marca-juego" href="#">
+      <span>
+        <strong>Rendered Hearts</strong>
+        <small>DDMI — Decimo Aniversario</small>
+      </span>
+    </a>
+
+    <section class="estado-juego" aria-label="Estado del juego">
+      <p><i class="fa-solid fa-signal"></i> Status: Activo</p>
+      <p><i class="fa-solid fa-star"></i> Score: <span id="valor-puntaje">0</span></p>
+      <p><i class="fa-solid fa-heart"></i> Vida: <span id="vida-jugador">10</span></p>
+    </section>
+
+    <nav class="menu-juego" aria-label="Menu del juego">
+      <ul>
+        <li><a href="#"><i class="fa-solid fa-house"></i> Inicio</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="escenario">
+    <aside class="panel-juego">
+      <p class="etiqueta-panel">Mission 01</p>
+      <h1>Rendered Hearts</h1>
+      <p>Escoge a tu compañero que te acompañará toda tu carrera. Todos tienen un precio.</p>
+
+      <ul class="controles-juego">
+        <li><i class="fa-solid fa-arrow-pointer"></i> Clic para seleccionar</li>
+        <li><i class="fa-solid fa-keyboard"></i> Espacio / Enter</li>
+      </ul>
+
+      <button class="boton-hud" type="button" id="reiniciar-juego">
+        <i class="fa-solid fa-play"></i>
+        <span>Reiniciar</span>
+      </button>
+    </aside>
+
+    <section class="marco-canvas" aria-label="Area de juego">
+
+        <div id="game-wrapper">
+        <canvas id="game-canvas"></canvas>
+
+        <div id="title-screen">
+          <div class="subtitle">una novela visual</div>
+          <h1>Rendered <span>Hearts</span></h1>
+          <div class="tagline">términos y condiciones no leídos</div>
+          <button id="start-btn">comenzar</button>
+        </div>
+
+        <div id="chapter-card">
+          <div class="ch-label" id="ch-label-text">prólogo</div>
+          <div class="ch-title" id="ch-title-text">Bienvenido al Pipeline</div>
+          <div class="ch-sub">haz clic para continuar</div>
+        </div>
+
+        <div id="dialogue-box">
+          <div id="speaker-name"></div>
+          <div id="dialogue-text"></div>
+          <div class="hint">▾</div>
+        </div>
+
+        <div id="thought-box">
+          <div id="thought-text"></div>
+          <div class="hint">▾</div>
+        </div>
+
+        <div id="narration-box">
+          <div id="narration-text"></div>
+          <div class="hint">▾ continuar</div>
+        </div>
+
+        <div id="choice-menu"></div>
+        <button id="quit-btn" title="Salir al título">✕</button>
+      </div>
+    </section>
+  </main>
+
+</body>
+
+<script src="scripts/java.js"></script>
+</html>
