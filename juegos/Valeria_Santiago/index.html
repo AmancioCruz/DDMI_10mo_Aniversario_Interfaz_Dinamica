@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carnaval Run | DDMI</title>
+    <link rel="preload" href="../../recursos/tipografias/PPNeueBit-Bold.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="../../recursos/tipografias/PPMondwest-Regular.otf" as="font" type="font/otf" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    <header class="hud-superior">
-        <a class="marca-juego" href="../../index.html">
-            <img src="../../recursos/identidad/simbolo-decimo-aniversario-ddmi.png" alt="">
-            <span>
-                <strong>Carnaval Run</strong>
-                <small>DDMI - Decimo Aniversario</small>
+    <header class="encabezado">
+        <a class="marca" href="../../index.html">
+            <img class="icono" src="../../recursos/identidad/simbolo-decimo-aniversario-ddmi.png" alt="">
+            <span class="marca-texto">
+                <strong>DDMI</strong>
+                <small>DDMI — Décimo Aniversario</small>
             </span>
         </a>
         <section class="estado-juego" id="hud">
@@ -22,14 +24,10 @@
             <p><i class="fa-solid fa-key"></i> Baratijas: <span id="texto-objetos">0 / 3</span></p>
             <p><i class="fa-solid fa-star"></i> Puntos: <span id="texto-puntuacion">0</span></p>
         </section>
-        <nav class="menu-juego" aria-label="Menu del juego">
-            <ul>
-                <li>
-                    <a href="../../index.html">
-                        <i class="fa-solid fa-house"></i>
-                        Inicio
-                    </a>
-                </li>
+        <nav class="navegacion">
+            <ul class="menu">
+                <li><a href="../../index.html">Inicio</a></li>
+                <li><a href="../../catalogo.html">Catálogo</a></li>
             </ul>
         </nav>
 

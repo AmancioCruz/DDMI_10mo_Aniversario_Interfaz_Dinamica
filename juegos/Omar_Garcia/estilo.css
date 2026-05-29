@@ -1,10 +1,20 @@
+@import url("../../estilo/configuraciones.css");
+@import url("../../estilo/menu.css");
+
 body{
     margin: 0;
+    min-height: 100vh;
     background: black;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.contenedor-juego{
+    min-height: calc(100vh - var(--alto-header));
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 canvas{

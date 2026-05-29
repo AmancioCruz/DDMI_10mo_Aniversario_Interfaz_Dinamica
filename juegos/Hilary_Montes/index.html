@@ -1,18 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Where is my cat?</title>
-    <link rel="stylesheet" href="../Hilary_Montes/css/style.css">
+    <link rel="preload" href="../../recursos/tipografias/PPNeueBit-Bold.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="../../recursos/tipografias/PPMondwest-Regular.otf" as="font" type="font/otf" crossorigin>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <canvas id="gameCanvas"></canvas>
+    <header class="encabezado">
+        <a class="marca" href="../../index.html">
+            <img class="icono" src="../../recursos/identidad/simbolo-decimo-aniversario-ddmi.png" alt="">
+            <span class="marca-texto">
+                <strong>DDMI</strong>
+                <small>DDMI — Décimo Aniversario</small>
+            </span>
+        </a>
+
+        <nav class="navegacion">
+            <ul class="menu">
+                <li><a href="../../index.html">Inicio</a></li>
+                <li><a href="../../catalogo.html">Catálogo</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contenedor-juego">
+        <canvas id="gameCanvas"></canvas>
+    </main>
+
+    <script src="js/camara.js"></script>
+    <script src="js/gem.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/obstacles.js"></script>
+    <script src="js/script.js"></script>
 </body>
-<script src="../Hilary_Montes/js/camara.js"></script>
-<script src="../Hilary_Montes/js/gem.js"></script>
-<script src="../Hilary_Montes/js/player.js"></script>
-<script src="../Hilary_Montes/js/map.js"></script>
-<script src="../Hilary_Montes/js/obstacles.js"></script>
-<script src="../Hilary_Montes/js/script.js"></script>
 </html>

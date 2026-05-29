@@ -4,6 +4,7 @@
     z-index: 20;
     width: 100%;
     height: var(--alto-header);
+    min-height: var(--alto-header);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -26,6 +27,7 @@
     color: var(--blanco);
     text-decoration: none;
 
+    height: 100%;
     display: flex;
     align-items: center;
     gap: var(--espacio-sm);
@@ -36,6 +38,7 @@
 }
 
 .marca-texto {
+    min-width: 11rem;
     display: flex;
     flex-direction: column;
     font-family: var(--fuente-principal-bold);
@@ -45,13 +48,16 @@
     font-family: var(--fuente-principal-bold);
     font-size: var(--titulo-lg);
     line-height: .8;
+    white-space: nowrap;
 }
 
 .marca-texto small {
     color: var(--rosa-mictlan);
     font-family: var(--fuente-principal);
     font-size: var(--texto-lg);
+    line-height: 1;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
 .boton-menu {

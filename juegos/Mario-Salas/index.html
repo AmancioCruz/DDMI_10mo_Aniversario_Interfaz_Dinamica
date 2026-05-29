@@ -6,10 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Break arc</title>
 
-    <link rel="stylesheet" href="css/estilo.css">
+    <link rel="preload" href="../../recursos/tipografias/PPNeueBit-Bold.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="../../recursos/tipografias/PPMondwest-Regular.otf" as="font" type="font/otf" crossorigin>
+    <link rel="stylesheet" href="CSS/estilo.css">
 </head>
 
 <body>
+    <header class="encabezado">
+        <a class="marca" href="../../index.html">
+            <img class="icono" src="../../recursos/identidad/simbolo-decimo-aniversario-ddmi.png" alt="">
+            <span class="marca-texto">
+                <strong>DDMI</strong>
+                <small>DDMI — Décimo Aniversario</small>
+            </span>
+        </a>
+
+        <nav class="navegacion">
+            <ul class="menu">
+                <li><a href="../../index.html">Inicio</a></li>
+                <li><a href="../../catalogo.html">Catálogo</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <div class="contenedor">
 
@@ -29,74 +47,75 @@
 
         </div>
 
-        <canvas
-            id="gameCanvas"
-            width="1280"
-            height="720">
+        <canvas id="gameCanvas" width="1280" height="720">
         </canvas>
+
         <div class="controles-touch">
+            <button id="btnIzquierda" type="button">←</button>
+            <button id="btnDerecha" type="button">→</button>
+        </div>
 
-    <button id="btnIzquierda">
-        ⬅
-    </button>
+        <!--div class="controles-touch">
 
-    <button id="btnDerecha">
-        ➡
-    </button>
+            <button id="btnIzquierda">
+                ⬅
+            </button>
 
-</div>
-        <label class="input-nave">
+            <button id="btnDerecha">
+                ➡
+            </button>
 
-    SUBIR NAVE
+        </div-->
+        <div class="acciones-juego">
+            <label class="input-nave">
 
-    <input
-        type="file"
-        id="inputNave"
-        accept="image/png, image/jpeg"
-    >
+                SUBIR NAVE
 
-</label>
-        <button id="btnStart">
-            START GAME
-        </button>
+                <input type="file" id="inputNave" accept="image/png, image/jpeg">
+
+            </label>
+            <button id="btnStart">
+                START GAME
+            </button>
+        </div>
         <div class="panel-reglas">
 
-    <h2>
-        REGLAS DEL JUEGO
-    </h2>
+            <h2>
+                REGLAS DEL JUEGO
+            </h2>
 
-    <ul>
-        <li>
-            Carga tu Nave en formato png o jpeg
-        </li>
+            <ul>
+                <li>
+                    Carga tu Nave en formato png o jpeg
+                </li>
 
-        <li>
-            Mueve la nave con las flechas ← →
-        </li>
+                <li>
+                    Mueve la nave con las flechas ← →
+                </li>
 
-        <li>
-            Destruye todos los ladrillos para ganar
-        </li>
+                <li>
+                    Destruye todos los ladrillos para ganar
+                </li>
 
-        <li>
-            Los ladrillos rojos resisten más golpes
-        </li>
+                <li>
+                    Los ladrillos rojos resisten más golpes
+                </li>
 
-        <li>
-            Tienes 3 vidas
-        </li>
+                <li>
+                    Tienes 3 vidas
+                </li>
 
-        <li>
-            Si la pelota cae pierdes una vida
-        </li>
+                <li>
+                    Si la pelota cae pierdes una vida
+                </li>
 
-    </ul>
+            </ul>
 
-</div>
+        </div>
 
     </div>
 
-<script type="module" src="js/game.js"></script>
+    <script type="module" src="JS/game.js"></script>
 </body>
 
 </html>

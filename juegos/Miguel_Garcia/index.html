@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PONG | DDMI</title>
 
+    <link rel="preload" href="../../recursos/tipografias/PPNeueBit-Bold.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="../../recursos/tipografias/PPMondwest-Regular.otf" as="font" type="font/otf" crossorigin>
+
     <!-- Iconos que uso el profesor -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -13,32 +16,28 @@
 </head>
 
 <body>
-    <header class="hud-superior">
-        <a class="marca-juego" href="../../index.html">
-            <img src="../../recursos/identidad/simbolo-decimo-aniversario-ddmi.png" alt="Logo">
-            <span>
-                <strong>PONG</strong>
-                <small>DDMI - Decimo Aniversario</small>
+    <header class="encabezado">
+        <a class="marca" href="../../index.html">
+            <img class="icono" src="../../recursos/identidad/simbolo-decimo-aniversario-ddmi.png" alt="Logo">
+            <span class="marca-texto">
+                <strong>DDMI</strong>
+                <small>DDMI — Décimo Aniversario</small>
             </span>
         </a>
 
-        <!-- Modificamos esto para llevar los 2 puntajes del Pong -->
-        <section class="estadisticas-juego">
-            <p><i class="fa-solid fa-gamepad"></i> P1 Score: <span id="score-p1">0</span></p>
-            <p><i class="fa-solid fa-gamepad"></i> P2 Score: <span id="score-p2">0</span></p>
-        </section>
-
-        <nav class="menu-juego" aria-label="Menu del juego">
-            <ul>
-                <li>
-                    <a href="../../index.html">
-                        <i class="fa-solid fa-house"></i>
-                        Inicio
-                    </a>
-                </li>
+        <nav class="navegacion">
+            <ul class="menu">
+                <li><a href="../../index.html">Inicio</a></li>
+                <li><a href="../../catalogo.html">Catálogo</a></li>
             </ul>
         </nav>
     </header>
+
+    <!-- Modificamos esto para llevar los 2 puntajes del Pong -->
+    <section class="estadisticas-juego">
+        <p><i class="fa-solid fa-gamepad"></i> P1 Score: <span id="score-p1">0</span></p>
+        <p><i class="fa-solid fa-gamepad"></i> P2 Score: <span id="score-p2">0</span></p>
+    </section>
 
     <!-- ÁREA PRINCIPAL DEL JUEGO -->
     <main class="escenario">

@@ -124,7 +124,14 @@ window.addEventListener("keydown", (e) => {
   if (e.code === "ArrowDown" || e.code === "KeyS") estados.abajo = true;
   if (e.code === "ArrowLeft" || e.code === "KeyA") estados.izquierda = true;
   if (e.code === "ArrowRight" || e.code === "KeyD") estados.derecha = true;
-  if (e.code === "Space") regaliz.estirando = true;
+
+  if (e.code === "Space") {
+    e.preventDefault();
+
+    if (juegoActivo && regaliz)
+      regaliz.estirando = true;
+  }
+
 });
 
 window.addEventListener("keyup", (e) => {
@@ -132,7 +139,11 @@ window.addEventListener("keyup", (e) => {
   if (e.code === "ArrowDown" || e.code === "KeyS") estados.abajo = false;
   if (e.code === "ArrowLeft" || e.code === "KeyA") estados.izquierda = false;
   if (e.code === "ArrowRight" || e.code === "KeyD") estados.derecha = false;
-  if (e.code === "Space") regaliz.estirando = false;
+  if (e.code === "Space") {
+    e.preventDefault()
+    if (juegoActivo && regaliz)
+      regaliz.estirando = false;
+  }
 });
 
 botonReiniciar.addEventListener("click", iniciarJuego);

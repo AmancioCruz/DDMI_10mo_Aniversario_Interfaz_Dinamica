@@ -7,7 +7,7 @@ const barra = {
     ancho: 180,
     alto: 80,
 
-    velocidad: 12,
+    velocidad: 10,
 
     imagen: new Image()
 };
@@ -21,8 +21,8 @@ const pelota = {
 
     radio: 12,
 
-    velocidadX: 6,
-    velocidadY: 6,
+    velocidadX: 3,
+    velocidadY: 3,
 
     color: "white"
 };

@@ -85,7 +85,20 @@ function generarEnemigos() {
 
 // CONTROLES
 const keys = {};
+const teclasJuego = new Set([
+    "ArrowUp",
+    "ArrowDown",
+    "ArrowLeft",
+    "ArrowRight",
+    " ",
+    "Enter"
+]);
+
 document.addEventListener("keydown", (e) => {
+    if (teclasJuego.has(e.key)) {
+        e.preventDefault();
+    }
+
     keys[e.key] = true;
 
     // INICIAR JUEGO
@@ -121,6 +134,10 @@ document.addEventListener("keydown", (e) => {
 });
 
 document.addEventListener("keyup", (e) => {
+    if (teclasJuego.has(e.key)) {
+        e.preventDefault();
+    }
+
     keys[e.key] = false;
 });
 

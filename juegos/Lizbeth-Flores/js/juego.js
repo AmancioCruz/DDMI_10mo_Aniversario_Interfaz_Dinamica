@@ -17,6 +17,9 @@ const colores = {
   amarillo: "#F6C776"
 };
 
+const imagenFondo = new Image();
+imagenFondo.src = "recursos/img/fondo.png";
+
 export const estados = { arriba: false, abajo: false, izquierda: false, derecha: false };
 
 let regaliz, dulce, monedas;
@@ -50,6 +53,12 @@ function iniciarJuego() {
   regaliz.monedas = 0;
   regaliz.vida = 3;
   tiempoRestante = 60;
+  saltando = false;
+  velocidadSalto = 0;
+  invulnerable = false;
+  mensajeActivo = null;
+  mensajeColor = null;
+  mensajeTiempo = 0;
 
   monedasHUD.textContent = regaliz.monedas;
   vidaHUD.textContent = regaliz.vida;
@@ -77,9 +86,12 @@ function iniciarTemporizador() {
 }
 
 function dibujarFondo() {
-  const fondo = new Image();
-  fondo.src = "recursos/img/fondo.png"; 
-  ctx.drawImage(fondo, 0, 0, canvas.width, canvas.height);
+  if (imagenFondo.complete) {
+    ctx.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
+  } else {
+    ctx.fillStyle = colores.crema;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
 }
 
 
@@ -160,6 +172,7 @@ function manejarColisiones() {
 
         if (regaliz.vida <= 0) {
           juegoActivo = false;
+          clearInterval(intervaloTiempo);
           dibujarMensaje("¡Perdiste!", colores.rosa);
         }
       }
@@ -190,7 +203,9 @@ function revisarMonedas() {
 
   if (regaliz.monedas >= monedas.length) {
     juegoActivo = false;
+    clearInterval(intervaloTiempo);
     dibujarMensaje("¡Ganaste!", colores.amarillo);
+    return;
   }
 }
 
@@ -207,19 +222,27 @@ function animar() {
   dulce.dibujar(ctx);
 
   revisarMonedas();
+  if (!juegoActivo) return;
+
   dibujarMensajes();
 
   cuadroAnimacion = requestAnimationFrame(animar);
 }
 
 window.addEventListener("keydown", (e) => {
+  const teclasJuego = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"];
+
+  if (teclasJuego.includes(e.code)) {
+    e.preventDefault();
+  }
+
   if (e.code === "ArrowUp" || e.code === "KeyW") estados.arriba = true;
   if (e.code === "ArrowDown" || e.code === "KeyS") estados.abajo = true;
   if (e.code === "ArrowLeft" || e.code === "KeyA") estados.izquierda = true;
   if (e.code === "ArrowRight" || e.code === "KeyD") estados.derecha = true;
 
   if (e.code === "Space") {
-    if (!saltando) {
+    if (juegoActivo && !saltando) {
       saltando = true;
       velocidadSalto = fuerzaSalto;
     }
@@ -227,6 +250,12 @@ window.addEventListener("keydown", (e) => {
 });
 
 window.addEventListener("keyup", (e) => {
+  const teclasJuego = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"];
+
+  if (teclasJuego.includes(e.code)) {
+    e.preventDefault();
+  }
+
   if (e.code === "ArrowUp" || e.code === "KeyW") estados.arriba = false;
   if (e.code === "ArrowDown" || e.code === "KeyS") estados.abajo = false;
   if (e.code === "ArrowLeft" || e.code === "KeyA") estados.izquierda = false;

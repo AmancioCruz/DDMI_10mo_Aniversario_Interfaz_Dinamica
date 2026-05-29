@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DDMI Décimo Aniversario | Interfaz Dinámica</title>
+    <link rel="preload" href="recursos/tipografias/PPNeueBit-Bold.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="recursos/tipografias/PPMondwest-Regular.otf" as="font" type="font/otf" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="estilo/estilo.css">
 </head>
@@ -26,8 +28,7 @@
         <nav class="navegacion">
             <ul class="menu">
                 <li class="activo"><a href="#inicio">Inicio</a></li>
-                <li><a href="#ddmi">DDMI</a></li>
-                <li><a href="#catalogo">Proyectos</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
             </ul>
 
         </nav>
@@ -42,39 +43,48 @@
     <main>
 
         <section id="inicio" class="seccion seccion-inicio">
-            <div class="encabezado-inicio">
-
-                <h1><span>Diseño Digital 3:</span> <span>Interfaz Dinámica</span></h1>
-            </div>
-
             <div class="cuerpo-inicio">
-                <div class="contenido-inicio">
-                    <p>
-                        Interfaz Dinámica es una materia enfocada en diseñar y desarrollar
-                        experiencias web interactivas usando HTML, CSS y JavaScript.
-                    </p>
-
-                    <p>
-                        La asignatura trabaja conceptos como interfaz, comportamiento visual,
-                        programación, manipulación del DOM, formularios dinámicos, consumo de APIs,
-                        Canvas, patrones de diseño y despliegue web.
-                    </p>
-
-                    <p>
-                        Su objetivo es que los estudiantes creen páginas y sistemas que no sean
-                        estáticos, sino que puedan responder a las acciones del usuario, comunicar
-                        información y generar experiencias digitales más dinámicas.
-                    </p>
-
-                    <p>
-                        Como proyecto integrador, los estudiantes desarrollan minijuegos web, donde
-                        aplican lógica, interacción, diseño visual y experiencia de usuario.
-                    </p>
-                </div>
-
                 <div class="visual-inicio" aria-hidden="true">
                     <img src="recursos/imagenes/hero-interfaz-dinamica.png" alt="">
                 </div>
+
+                <div class="contenido-inicio">
+                    <h2><span>Diseño Digital 3:</span> <span>Interfaz Dinámica</span></h2>
+
+                    <p>
+                        Diseño, programación e interacción para crear experiencias web dinámicas.
+                    </p>
+
+                    <a class="boton-inicio" href="catalogo.html">Ver catálogo</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="materia" class="seccion seccion-materia">
+            <div class="encabezado-seccion">
+                <p class="etiqueta">Materia</p>
+                <h2>¿Qué es Interfaz Dinámica?</h2>
+            </div>
+
+            <div class="contenido-seccion">
+                <p>
+                    Interfaz Dinámica es una materia donde el diseño y la programación se unen
+                    para crear experiencias web que responden a las acciones del usuario.
+                </p>
+
+                <p>
+                    En el curso se trabaja con HTML, CSS y JavaScript para construir interfaces,
+                    manejar eventos, usar Canvas y diseñar comportamientos interactivos.
+                </p>
+
+                <p>
+                    El objetivo es pasar de páginas estáticas a proyectos dinámicos, claros y
+                    funcionales.
+                </p>
+
+                <p>
+                    Como proyecto integrador, los estudiantes desarrollan minijuegos web.
+                </p>
             </div>
         </section>
 
@@ -86,52 +96,14 @@
 
             <div class="contenido-seccion">
                 <p>
-                    Diseño Digital de Medios Interactivos (DDMI) es una licenciatura de la
-                    UACJ enfocada en la creación de experiencias digitales que integran
-                    diseño, tecnología e interacción.
+                    Diseño Digital de Medios Interactivos (DDMI) es una licenciatura de la UACJ
+                    enfocada en crear experiencias digitales mediante diseño, tecnología e interacción.
                 </p>
 
                 <p>
-                    La carrera combina áreas como desarrollo web, videojuegos, animación,
-                    programación, diseño visual y medios multimedia para construir proyectos
-                    capaces de conectar con las personas mediante entornos digitales
-                    interactivos.
+                    Este sitio forma parte del décimo aniversario de DDMI y presenta una muestra de
+                    proyectos realizados desde la materia de Interfaz Dinámica.
                 </p>
-            </div>
-        </section>
-
-        <section id="catalogo" class="seccion seccion-catalogo">
-            <div class="encabezado-seccion">
-                <p class="etiqueta">Proyectos finales</p>
-                <h2>Catálogo de proyectos</h2>
-            </div>
-
-            <div class="contenido-seccion">
-                <p>
-                    Los siguientes proyectos fueron desarrollados por estudiantes de Diseño
-                    Digital 3: Interfaz Dinámica como parte de los ejercicios integradores del
-                    curso.
-                </p>
-
-                <p>
-                    Cada proyecto explora distintas formas de interacción web mediante
-                    sistemas visuales, mecánicas dinámicas y experiencias desarrolladas con
-                    tecnologías web.
-                </p>
-            </div>
-
-            <div class="contenedor-proyectos">
-                <a class="tarjeta-proyecto" href="juegos/space-defender/index.html">
-                    <figure class="imagen-proyecto">
-                        <img src="juegos/space-defender/img/space-defender.png" alt="Space Defender">
-                    </figure>
-
-                    <div class="info-proyecto">
-                        <h3>Space Defender</h3>
-                        <p>Creador: Amancio Torres Cruz</p>
-                        <p>Profesor</p>
-                    </div>
-                </a>
             </div>
         </section>
 

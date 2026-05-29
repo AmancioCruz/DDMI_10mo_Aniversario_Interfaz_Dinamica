@@ -123,6 +123,15 @@ const ghosts = [
 
 document.addEventListener("keydown", (e) => {
 
+    if (
+        e.key === "ArrowUp" ||
+        e.key === "ArrowDown" ||
+        e.key === "ArrowLeft" ||
+        e.key === "ArrowRight"
+    ) {
+        e.preventDefault();
+    }
+
     if (!juegoIniciado) return;
 
     if (e.key === "ArrowUp") {
@@ -338,7 +347,7 @@ function dibujarFantasmas() {
 
 // ======================================
 // 
- MURO
+//MURO
 // ======================================
 
 function tocaMuro(x, y, radio) {

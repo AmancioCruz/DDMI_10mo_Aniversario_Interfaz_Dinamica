@@ -1,3 +1,5 @@
+@import url("../../../../estilo/configuraciones.css");
+@import url("../../../../estilo/menu.css");
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     img { display: block; max-width: 100%; }

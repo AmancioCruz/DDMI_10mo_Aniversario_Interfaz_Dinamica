@@ -1,3 +1,6 @@
+@import url("../../../estilo/configuraciones.css");
+@import url("../../../estilo/menu.css");
+
 *{
     margin: 0;
     padding: 0;
@@ -5,16 +8,37 @@
 }
 
 body{
-    background-color: #000000;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--negro);
+    background-image:
+        linear-gradient(rgba(255, 234, 0, .07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 234, 0, .07) 1px, transparent 1px);
+    background-size: var(--espacio-lg) var(--espacio-lg);
+    color: var(--blanco);
+    font-family: var(--fuente-cuerpo);
+    overflow-x: hidden;
+}
+
+.contenedor-juego{
+    min-height: calc(100vh - var(--alto-header));
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    overflow: hidden;
+    padding: var(--espacio-lg);
 }
 
 canvas{
     background-color: #4e4581;
-    border: 5px solid #4e4581;
+    border: 1px solid var(--amarillo-electrico);
+    max-width: 100%;
+    height: auto;
     image-rendering: pixelated;
+}
+
+@media (max-width: 768px){
+    .contenedor-juego{
+        padding: var(--espacio-sm);
+    }
 }

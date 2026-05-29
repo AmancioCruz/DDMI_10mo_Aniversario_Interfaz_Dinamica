@@ -1,6 +1,6 @@
 .pantalla-juego {
-    min-height: 100vh;
-    padding: var(--espacio-xl);
+    min-height: calc(100vh - var(--alto-header) - var(--alto-nav));
+    padding: var(--espacio-md);
 
     display: flex;
     justify-content: center;
@@ -9,17 +9,17 @@
 
 .panel-juego {
     width: 100%;
-    max-width: 1000px;
+    max-width: min(1100px, 100%);
 
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    gap: var(--espacio-lg);
+    gap: var(--espacio-md);
 
     text-align: center;
 
-    padding: var(--espacio-xl);
+    padding: var(--espacio-md);
 
     border: 1px solid rgba(255, 234, 0, .3);
     background-color: rgba(0, 0, 0, .8);
@@ -27,21 +27,23 @@
 
 .encabezado-juego {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
 
-    gap: var(--espacio-xs);
+    gap: var(--espacio-xs) var(--espacio-md);
 }
 
 .encabezado-juego h1 {
+    width: 100%;
     color: var(--amarillo-electrico);
-    font-size: var(--titulo-lg);
+    font-size: var(--titulo-md);
     text-align: center;
 }
 
 .encabezado-juego p {
     text-align: center;
-    font-size: 20px;
+    font-size: var(--texto-md);
 }
 
 .contenedor-nonograma {
@@ -60,6 +62,9 @@
 #nonogramaCanvas {
     border: 2px solid var(--amarillo-electrico);
     background-color: #111;
+    width: min(72vh, 100%);
+    height: auto;
+    max-width: 100%;
 
     image-rendering: pixelated;
 }
@@ -74,9 +79,10 @@
 
     display: flex;
 
-    gap: 12px;
+    gap: var(--espacio-sm);
 
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .panel-controles button {
@@ -110,7 +116,7 @@
 .menu-principal,
 .pantalla-reglas {
 
-    min-height: 100vh;
+    min-height: calc(100vh - var(--alto-header) - var(--alto-nav));
 
     display: flex;
     flex-direction: column;
@@ -118,7 +124,7 @@
     justify-content: center;
     align-items: center;
 
-    gap: var(--espacio-lg);
+    gap: var(--espacio-md);
 
     text-align: center;
 }

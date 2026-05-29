@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Star Pop | DDMI</title>
+    <link rel="preload" href="../../recursos/tipografias/PPNeueBit-Bold.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="../../recursos/tipografias/PPMondwest-Regular.otf" as="font" type="font/otf" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../space-defender/css/estilos.css">
     <link rel="icon" href="recursos/img/normal.png" />
@@ -15,32 +17,28 @@
 </head>
 
 <body>
-    <header class="hud-superior">
-        <a class="marca-juego" href="../../index.html">
-            <img src="../../recursos/identidad/simbolo-decimo-aniversario-ddmi.png" alt="">
-            <span>
-                <strong>Star Pop</strong>
-                <small>DDMI - Decimo Aniversario</small>
+    <header class="encabezado">
+        <a class="marca" href="../../index.html">
+            <img class="icono" src="../../recursos/identidad/simbolo-decimo-aniversario-ddmi.png" alt="">
+            <span class="marca-texto">
+                <strong>DDMI</strong>
+                <small>DDMI — Décimo Aniversario</small>
             </span>
         </a>
 
-        <section class="estado-juego" aria-label="Estado del juego">
-            <p><i class="fa-solid fa-signal"></i> Status: Activo</p>
-            <p><i class="fa-solid fa-star"></i> Mejor puntaje: <span id="mejorPuntuaje">0</span></p>
-            <p><i></i> Puntaje: <span id="puntajeActual">0</span></p>
-        </section>
-
-        <nav class="menu-juego" aria-label="Menu del juego">
-            <ul>
-                <li>
-                    <a href="../../index.html">
-                        <i class="fa-solid fa-house"></i>
-                        Inicio
-                    </a>
-                </li>
+        <nav class="navegacion">
+            <ul class="menu">
+                <li><a href="../../index.html">Inicio</a></li>
+                <li><a href="../../catalogo.html">Catálogo</a></li>
             </ul>
         </nav>
     </header>
+
+    <section class="estado-juego" aria-label="Estado del juego">
+        <p><i class="fa-solid fa-signal"></i> Status: Activo</p>
+        <p><i class="fa-solid fa-star"></i> Mejor puntaje: <span id="mejorPuntuaje">0</span></p>
+        <p><i class="fa-solid fa-heart"></i> Puntaje: <span id="puntajeActual">0</span></p>
+    </section>
 
     <main class="escenario">
         <aside class="panel-juego">
@@ -69,8 +67,7 @@
         </section>
     </main>
 
-
+    <script type="module" src="js/script.js"></script>
 </body>
-<script type="module" src="js/script.js"></script>
 
 </html>
